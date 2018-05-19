@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<%= current_page.data.description %>">
+  <meta name="author" content="Damir Kotorić">
+
+  <!-- Social media sharing -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@damirkotoric">
+  <meta property="og:title" content="Instamentary">
+  <meta property="og:description" content="Turn any web page into an instant documentary.">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="Instamentary">
+  <meta property="og:image" content="/images/static/.jpg">
+  <meta property="og:image:alt" content="Turn any web page into an instant documentary.">
+  <meta property="og:image:width" content="">
+  <meta property="og:image:height" content="">
+
+  <!-- Always force latest IE rendering engine or request Chrome Frame -->
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+  <!-- Google Webmaster Tools verification (keep it here permanently) -->
+  <meta name="google-site-verification" content="xns4J7VsDFSTLxgBa_X2MTO07TVjiNPfkIIs0uoJh1w" />
+
+  <!-- Use title if it's in the page YAML frontmatter -->
+  <title>Instamentary — Turn any web page into an instant documentary</title>
+
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/apple-touch-icon-152x152-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png" />
+  <link rel="shortcut icon" href="/images/favicon.png" />
+  <link rel="icon" type="image/ico" href="/images/favicon.ico" />
+  <%= inline_stylesheet :index %>
+  <%= javascript_include_tag :all %>
+</head>
+
+<body class="page--<%= page_classes %>">
+
+  <%= yield %>
+
+</body>
+
+</html>

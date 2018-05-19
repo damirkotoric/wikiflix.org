@@ -1,0 +1,19 @@
+.footer
+  text-align: center
+  +breakpoint($breakpoint-2...)
+    padding: 3rem 2rem 2.5rem
+
+.footer__newsletter
+  > div
+    display: flex
+    align-items: center
+    justify-content: center
+  input
+    margin: 0 0.5rem 1rem
+    +breakpoint($breakpoint-2...)
+      margin: 0 0.5rem
+
+.footer__credits
+  color: grey
+  a
+    color: darken(grey, 10%)

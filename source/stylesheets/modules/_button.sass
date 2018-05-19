@@ -1,0 +1,38 @@
+.button
+  background: $color_primary
+  border: 2px solid $color_primary
+  border-radius: 100px
+  color: white
+  display: inline-block
+  font-weight: 600
+  padding: 0.5rem 1rem
+  transition: opacity 0.3s
+  text-align: center
+  line-height: 1.4
+
+  &:hover
+    background: darken($color_primary, 4%)
+    color: white
+
+  &:active
+    background: darken($color_primary, 10%)
+    border: 2px solid darken($color_primary, 10%)
+
+  &.--large
+    padding: 1rem 2rem
+
+  &.--alternative
+    background: white
+    border: 2px solid $color_primary
+    color: darken($color_primary, 10%)
+    font-weight: 500
+
+    &:hover
+      background: darken(white, 2%)
+      border: 2px solid darken($color_primary, 20%)
+      color: darken($color_primary, 25%)
+
+    &:active
+      background: darken(white, 8%)
+      border: 2px solid darken($color_primary, 25%)
+      color: darken($color_primary, 30%)
