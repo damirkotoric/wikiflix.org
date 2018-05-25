@@ -11,45 +11,35 @@ window.onload = function () {
   	}, false)
   }
 
-  var uploadButton = document.getElementById('upload__button')
-  var uploadFile = document.getElementById('upload__file')
+  var controls = document.getElementById('controls')
+  var playButton = document.getElementById('controls__play')
+  var pauseButton = document.getElementById('controls__pause')
+  var playerAudios = document.getElementById('player__audios')
+  var snippets = document.getElementById('snippets')
+  var snippetIndexToPlay = 0
 
-  if (uploadButton) {
-    uploadButton.addEventListener('click', function(e) {
-      ga('send', 'event', 'Buttons', 'click', 'Uplod your photo')
+  if (playButton) {
+    playButton.addEventListener('click', function(e) {
+      controls.classList.toggle('--playing')
+      play()
     })
   }
 
-  if (uploadFile) {
-    uploadFile.addEventListener('change', function(e) {
-    	console.log(e.currentTarget.files)
-      console.log('starting AJAXSubmit')
+  if (pauseButton) {
+    pauseButton.addEventListener('click', function(e) {
+      controls.classList.toggle('--playing')
+      playerAudios.querySelector('audio').pause()
     })
-  }
-
-  if(window.location.href.indexOf('ready') > -1) {
-    var settings = URLToArray(window.location.href)
-    console.log(settings)
-    document.getElementById('botcraft_image_hero').setAttribute('src', settings.botcraft_image_output)
-    document.getElementById('botcraft_image_output').setAttribute('src', settings.botcraft_image_output)
-    document.getElementById('botcraft_image_input').setAttribute('src', settings.botcraft_image_input)
-    document.getElementById('botcraft_image_style').setAttribute('src', settings.botcraft_image_style)
-    document.getElementById('botcraft_twitter_share').setAttribute('href', 'https://twitter.com/share?url=' + settings.botcraft_image_output + "&amp;text=This photo was painted by a bot with @botcraft_io")
-    document.getElementById('botcraft_facebook_share').setAttribute('href', 'http://www.facebook.com/sharer.php?u=' + settings.botcraft_image_output)
-    document.body.classList.add('js-ready-loaded')
   }
 
   // Functions
-  // https://stackoverflow.com/questions/4297765/make-a-javascript-array-from-url
-  function URLToArray(url) {
-    var request = {};
-    var pairs = url.substring(url.indexOf('?') + 1).split('&');
-    for (var i = 0; i < pairs.length; i++) {
-        if(!pairs[i])
-            continue;
-        var pair = pairs[i].split('=');
-        request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-     }
-     return request;
-   }
+  function play() {
+    playerAudios.querySelector('audio:nth-child(' + snippetIndexToPlay+1 + ')').play()
+    var currentSnippet = snippets.querySelector('.instamentary__snippet.--active')
+    if (currentSnippet) {
+      currentSnippet.classList.remove('--active').nextElementSibling.classList.add('--active')
+    } else {
+      snippets.querySelector('.instamentary__snippet:first-child').classList.add('--active')
+    }
+  }
 }

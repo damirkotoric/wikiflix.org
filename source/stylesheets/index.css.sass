@@ -10,6 +10,8 @@
 @import "modules/modal"
 @import "modules/not_found"
 @import "modules/instamentary"
+@import "modules/player"
+@import "modules/controls"
 
 *, *:before, *:after
   -moz-box-sizing: border-box
@@ -69,6 +71,18 @@ a
   color: black
   text-decoration: none
 
+button
+  cursor: pointer
+  font: inherit
+  background: none
+  border: none
+  color: inherit
+  padding: 0
+  -webkit-appearance: none
+  display: block
+  &:focus
+    outline: none
+
 strong
   font-weight: 600
 
@@ -78,7 +92,7 @@ strong
 em
   font-style: italic
 
-img
+img, iframe
   max-width: 100%
 
 figcaption
