@@ -90,7 +90,7 @@ configure :build do
 
   activate :directory_indexes
 
-  activate :minify_html
+  # activate :minify_html
 
   activate :gzip
 end
