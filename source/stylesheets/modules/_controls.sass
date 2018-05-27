@@ -37,9 +37,27 @@
   width: 100%
   .--playing &
     opacity: 0
+  .--loading &
+    opacity: 0
+    transition: none
   > img
     margin-right: 20px
     height: 20px
+
+.controls__loading
+  position: absolute
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  padding: 10px
+  opacity: 0
+  transition: opacity 0.2s
+  pointer-events: none
+  .--loading &
+    opacity: 1
+  .--playing &
+    opacity: 0
 
 .controls__modify
   display: none

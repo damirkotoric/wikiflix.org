@@ -6,7 +6,7 @@
   "snippets": [
     {
       "searchParameters": [],
-      "imageURL": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Cabeza_de_Vaca_Portrait.jpg",
+      "imageURL": "https://d33ypg4xwx0n86.cloudfront.net/direct?url=https%3A%2F%2Fnu.aeon.co%2Fimages%2F9088de2c-a2b9-4658-93b1-ee3629d2323a%2Fheader_essay-final-par76829.jpg&resize=w1408",
       "audioURL": "https://www.dropbox.com/s/79g3tlgckocnmr8/1.mp3?dl=1"
     },
     {
@@ -178,6 +178,6 @@
       "searchParameters": ["language", "idea", "idea"],
       "imageURL": "https://images.unsplash.com/photo-1522199670076-2852f80289c3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ab630f082590b51249a9df9975164eb2&auto=format&fit=crop&w=1952&q=80",
       "audioURL": "https://www.dropbox.com/s/si9x8v8u04q46gh/35.mp3?dl=1"
-    },
+    }
   ]
 }
