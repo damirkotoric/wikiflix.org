@@ -133,7 +133,7 @@ end
 ::Middleman::Extensions.register(:sync, Sync)
 
 configure :sync do
-  system 'gsutil -m rm gs://botcraft.io/**'
+  system 'gsutil -m rm gs://instamentary.co/**'
   Dir.chdir './build/'
-  system 'gsutil cp -r * gs://botcraft.io'
+  system 'gsutil cp -r * gs://instamentary.co'
 end
