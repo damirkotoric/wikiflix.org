@@ -2,15 +2,21 @@
   background: $color_primary
   border: 2px solid $color_primary
   border-radius: 100px
+  box-shadow: 0 0 15px 5px rgba(black, 0.5)
   color: white
   align-items: center
+  cursor: pointer
+  display: flex
   justify-content: center
   font-weight: 600
   transition: opacity 0.3s, border-radius 0.2s
   text-align: center
   line-height: 1.4
-  margin: 2rem 0
   position: relative
+  z-index: 10
+  height: 60px
+  transition: all 0.3s ease-out
+  width: 100%
   &:hover
     background: darken($color_primary, 4%)
     color: white
@@ -18,63 +24,76 @@
     background: darken($color_primary, 10%)
     border: 2px solid darken($color_primary, 10%)
   &.--playing
-    // border-radius: 10px
+    width: auto
     &:hover
       background: $color_primary
     &:active
       background: $color_primary
       border: 2px solid darken($color_primary, 10%)
+  &.--sticky
+    background: darken($color_primary, 35%)
+    border-color: darken($color_primary, 40%)
+    position: fixed
+    max-width: calc(40% - 8rem)
+    top: 0
+    left: 4rem
+    transform: translateY(1rem)
+    &:hover
+      background: darken($color_primary, 30%)
+    &:active
+      background: darken($color_primary, 20%)
 
 .controls__play, .controls__pause
   display: flex
   align-items: center
   justify-content: center
 
-.controls__play
-  padding: 1rem 2rem
-  transition: opacity 0.2s
-  text-align: center
+.controls__play, .controls__loading, .controls__modify
+  height: 100%
   width: 100%
-  .--playing &
-    opacity: 0
-  .--loading &
-    opacity: 0
-    transition: none
+
+.controls__play
+  display: flex
+  align-items: center
+  text-align: center
+  .--playing &, .--loading &
+    display: none
   > img
     margin-right: 20px
     height: 20px
 
 .controls__loading
+  display: none
   position: absolute
   top: 0
   left: 0
-  height: 100%
-  width: 100%
   padding: 10px
-  opacity: 0
   transition: opacity 0.2s
   pointer-events: none
   .--loading &
-    opacity: 1
+    display: block
   .--playing &
-    opacity: 0
+    display: none
 
 .controls__modify
+  cursor: pointer
   display: none
   align-items: center
   justify-content: center
-  position: absolute
-  top: 0
-  left: 0
-  height: 100%
-  width: 100%
   .--playing &
     display: flex
 
-.controls__pause
+.controls__modify__pause
+  display: flex
+  align-items: center
+  justify-content: center
   opacity: 0.9
   padding: 1rem 4rem
+  width: 100%
   &:hover
     opacity: 1
+  .--sticky &
+    padding: 1rem
   > img
     height: 20px
+    max-width: none

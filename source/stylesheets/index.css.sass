@@ -13,6 +13,7 @@
 @import "modules/player"
 @import "modules/controls"
 @import "modules/loader"
+@import "modules/subscribe"
 
 *, *:before, *:after
   -moz-box-sizing: border-box
@@ -28,7 +29,7 @@ html
     font-size: 18px
 
 body
-  &.--modal-visible
+  &.--modal-show
     overflow: hidden
 
 h1, h2, h3, h4, h5, h6
@@ -123,6 +124,7 @@ input
       border-color: lighten($color_primary, 30%)
   &[type="submit"]
     @extend .button
+    border-radius: 4px
     cursor: pointer
     &:disabled
       background: $color_primary
