@@ -134,7 +134,7 @@ end
 
 configure :sync do
   system 'middleman build'
-  system 'gsutil -m rm gs://instamentary.co/**'
   Dir.chdir './build/'
+  system 'gsutil -m rm gs://instamentary.co/**'
   system 'gsutil cp -r * gs://instamentary.co'
 end
