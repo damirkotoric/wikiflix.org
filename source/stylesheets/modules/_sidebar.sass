@@ -1,9 +1,12 @@
 .sidebar
   color: darken(white, 10%)
-  padding: 3rem
-  width: 40%
+  padding: 3rem 1rem 0
   position: relative
-  z-index: 2
+  width: 100%
+  z-index: 3
+  +breakpoint($breakpoint-2...)
+    padding: 3rem
+    width: 40%
 
 .sidebar__logo
   color: white
@@ -29,33 +32,36 @@
       color: white
 
 .sidebar__content
-  margin: 6rem 0
+  margin: 4rem 0 0
+  +breakpoint($breakpoint-2...)
+    margin: 6rem 0
 
 .sidebar__footer
   font-size: 0.8rem
   padding-top: 2rem
 
 .sidebar__background
-  width: 60%
-  pointer-events: none
-  position: fixed
-  top: 0
-  left: 0
-  height: 100%
-  z-index: 1
-  &::before, &::after
-    content: ''
-    position: absolute
-    top: 0
-    height: 100%
-    z-index: -1
-    pointer-events: none
-  &::before
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 100%)
-    left: 0
-    width: 40%
-  &::after
-    background: linear-gradient(to right, black 0%, rgba(0, 0, 0, 0.738) 19%, rgba(0, 0, 0, 0.541) 34%, rgba(0, 0, 0, 0.382) 47%, rgba(0, 0, 0, 0.278) 56.5%, rgba(0, 0, 0, 0.194) 65%, rgba(0, 0, 0, 0.126) 73%, rgba(0, 0, 0, 0.075) 80.2%, rgba(0, 0, 0, 0.042) 86.1%, rgba(0, 0, 0, 0.021) 91%, rgba(0, 0, 0, 0.008) 95.2%, rgba(0, 0, 0, 0.002) 98.2%, transparent 100%)
-    right: 0
+  +breakpoint($breakpoint-2...)
     width: 60%
-    opacity: 0.8
+    pointer-events: none
+    position: fixed
+    top: 0
+    left: 0
+    height: 100%
+    z-index: 2
+    &::before, &::after
+      content: ''
+      position: absolute
+      top: 0
+      height: 100%
+      z-index: -1
+      pointer-events: none
+    &::before
+      background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 100%)
+      left: 0
+      width: 40%
+    &::after
+      background: linear-gradient(to right, black 0%, rgba(0, 0, 0, 0.738) 19%, rgba(0, 0, 0, 0.541) 34%, rgba(0, 0, 0, 0.382) 47%, rgba(0, 0, 0, 0.278) 56.5%, rgba(0, 0, 0, 0.194) 65%, rgba(0, 0, 0, 0.126) 73%, rgba(0, 0, 0, 0.075) 80.2%, rgba(0, 0, 0, 0.042) 86.1%, rgba(0, 0, 0, 0.021) 91%, rgba(0, 0, 0, 0.008) 95.2%, rgba(0, 0, 0, 0.002) 98.2%, transparent 100%)
+      right: 0
+      width: 60%
+      opacity: 0.8

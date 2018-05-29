@@ -22,9 +22,12 @@ window.onload = function () {
   var playButton = document.getElementById('play')
   var pauseButton = document.getElementById('pause')
   var player = document.getElementById('player')
+  var playerPrevious = document.getElementById('player__previous')
   var playerAudio = document.getElementById('player__audio')
   var playerImage = document.getElementById('player__image')
+  var playerImagePrevious = document.getElementById('player__image__previous')
   var playerBackground = document.getElementById('player__background')
+  var playerBackgroundPrevious = document.getElementById('player__background__previous')
   var snippets = document.getElementById('snippets')
   var modalClose = document.getElementById('modal__close')
   var subscribe = document.getElementById('subscribe')
@@ -45,7 +48,7 @@ window.onload = function () {
   subscribeOutputDone.addEventListener('click', hideModal)
 
   // Init
-  loadData('/data/gesture-talks/info.json')
+  loadData('/data/instamentaries/gesture-talks.json')
 
   // Functions
   function loadData(url) {
@@ -90,15 +93,24 @@ window.onload = function () {
       // Set active image
       console.log('image url is ' + instamentaryData.snippets[currentSnippetIndex].image.url)
       var imageURL = instamentaryData.snippets[currentSnippetIndex].image.url
+      playerImagePrevious.setAttribute('src', playerImage.getAttribute('src'))
       playerImage.setAttribute('src', '')
       playerImage.setAttribute('src', imageURL)
+      playerBackgroundPrevious.setAttribute('src', playerBackground.getAttribute('src'))
       playerBackground.setAttribute('src', '')
       playerBackground.setAttribute('src', imageURL)
-      if (instamentaryData.snippets[currentSnippetIndex].image.style) {
-        player.classList.remove('--style-cover')
-        player.classList.remove('--style-contain')
-        player.classList.add('--style-' + instamentaryData.snippets[currentSnippetIndex].image.style)
+      playerPrevious.classList.remove('--style-cover')
+      playerPrevious.classList.remove('--style-contain')
+      if (player.classList.contains('--style-cover')) {
+        playerPrevious.classList.add('--style-cover')
+      } else {
+        playerPrevious.classList.add('--style-contain')
       }
+      player.classList.remove('--style-cover')
+      player.classList.remove('--style-contain')
+      // https://css-tricks.com/restart-css-animation/
+      void player.offsetWidth
+      player.classList.add('--style-' + instamentaryData.snippets[currentSnippetIndex].image.style)
     }
   }
 
