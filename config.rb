@@ -133,6 +133,7 @@ end
 ::Middleman::Extensions.register(:sync, Sync)
 
 configure :sync do
+  system 'middleman build'
   system 'gsutil -m rm gs://instamentary.co/**'
   Dir.chdir './build/'
   system 'gsutil cp -r * gs://instamentary.co'

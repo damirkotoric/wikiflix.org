@@ -1,5 +1,6 @@
 //= require fastclick
 //= require modernizr
+//= require howler.min
 
 'use strict'
 
@@ -24,19 +25,21 @@ window.onload = function () {
   var pauseButton = document.getElementById('pause')
   var playerForeground = document.getElementById('player__foreground')
   var playerBackground = document.getElementById('player__background')
-  var playerAudio = document.getElementById('player__audio')
   var snippets = document.getElementById('snippets')
   var modalClose = document.getElementById('modal__close')
   var subscribe = document.getElementById('subscribe')
   var subscribeOutputDone = document.getElementById('subscribe__output__done')
   var currentSnippetIndex = 0
+  var audio
+  var audioID
+  var audioPaused = false
+  var audioSeek
 
   // Event listeners
   inputForm.addEventListener('submit', inputFormSubmitted)
   subscribeForm.addEventListener('submit', subscribeFormSubmitted)
   playButton.addEventListener('click', play)
   pauseButton.addEventListener('click', pause)
-  playerAudio.addEventListener('ended', end)
   Array.prototype.forEach.call(snippets.querySelectorAll('.instamentary__snippet'), function(instamentarySnippet, i) {
     instamentarySnippet.addEventListener('click', jumpTo)
   })
@@ -75,9 +78,14 @@ window.onload = function () {
     } else {
       // Play audio
       console.log('current snippet index is ' + currentSnippetIndex)
-      var audioURL = instamentaryData.snippets[currentSnippetIndex].audioURL
-      playerAudio.setAttribute('src', audioURL)
-      playerAudio.play()
+      if (audio && audio.playing) {
+        audio.stop()
+      }
+      audio = new Howl({
+        src: [instamentaryData.snippets[currentSnippetIndex].audioURL]
+      })
+      audio.on('end', end)
+      audioID = audio.play()
       controls.classList.remove('--loading')
       controls.classList.add('--playing')
       // Highlight active paragraph snippet
@@ -112,7 +120,7 @@ window.onload = function () {
   }
 
   function pause(e) {
-    playerAudio.pause()
+    audio.pause()
     controls.classList.remove('--playing')
   }
 
