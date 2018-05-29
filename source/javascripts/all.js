@@ -19,15 +19,12 @@ window.onload = function () {
   var email = document.getElementById('email')
   var instamentaryControls = document.getElementById('instamentary__controls')
   var controls = document.getElementById('controls')
+  var playWrap = document.getElementById('play__wrap')
   var playButton = document.getElementById('play')
   var pauseButton = document.getElementById('pause')
-  var player = document.getElementById('player')
-  var playerPrevious = document.getElementById('player__previous')
-  var playerAudio = document.getElementById('player__audio')
-  var playerImage = document.getElementById('player__image')
-  var playerImagePrevious = document.getElementById('player__image__previous')
+  var playerForeground = document.getElementById('player__foreground')
   var playerBackground = document.getElementById('player__background')
-  var playerBackgroundPrevious = document.getElementById('player__background__previous')
+  var playerAudio = document.getElementById('player__audio')
   var snippets = document.getElementById('snippets')
   var modalClose = document.getElementById('modal__close')
   var subscribe = document.getElementById('subscribe')
@@ -90,35 +87,33 @@ window.onload = function () {
       }
       console.log(snippets.querySelector('.instamentary__snippet:nth-of-type(' + parseInt(currentSnippetIndex)+1 + ')'))
       snippets.querySelector('.instamentary__snippet:nth-of-type(' + parseInt(currentSnippetIndex+1) + ')').classList.add('--active')
-      // Set active image
+      // Create new playerForeground
+      var newPlayerForeground = playerForeground.cloneNode([true])
+      newPlayerForeground.classList.add('--foreground')
+      playerForeground.parentNode.appendChild(newPlayerForeground)
       console.log('image url is ' + instamentaryData.snippets[currentSnippetIndex].image.url)
-      var imageURL = instamentaryData.snippets[currentSnippetIndex].image.url
-      playerImagePrevious.setAttribute('src', playerImage.getAttribute('src'))
-      playerImage.setAttribute('src', '')
-      playerImage.setAttribute('src', imageURL)
-      playerBackgroundPrevious.setAttribute('src', playerBackground.getAttribute('src'))
-      playerBackground.setAttribute('src', '')
-      playerBackground.setAttribute('src', imageURL)
-      playerPrevious.classList.remove('--style-cover')
-      playerPrevious.classList.remove('--style-contain')
-      if (player.classList.contains('--style-cover')) {
-        playerPrevious.classList.add('--style-cover')
-      } else {
-        playerPrevious.classList.add('--style-contain')
-      }
-      player.classList.remove('--style-cover')
-      player.classList.remove('--style-contain')
+      newPlayerForeground.querySelector('.player__image__foreground').setAttribute('src', instamentaryData.snippets[currentSnippetIndex].image.url)
+      newPlayerForeground.querySelector('.player__image__background').setAttribute('src', instamentaryData.snippets[currentSnippetIndex].image.url)
+      newPlayerForeground.classList.remove('--style-cover')
+      newPlayerForeground.classList.remove('--style-contain')
+      // Remove old playerBackground
+      playerBackground.parentNode.removeChild(playerBackground)
+      // Set old playerForeground to new playerBackground
+      playerForeground.classList.remove('--foreground')
+      playerForeground.setAttribute('id', 'player__background')
+      // Update references to players
+      playerBackground = playerForeground
+      playerForeground = newPlayerForeground
+      // Animate in playerForeground
       // https://css-tricks.com/restart-css-animation/
-      void player.offsetWidth
-      player.classList.add('--style-' + instamentaryData.snippets[currentSnippetIndex].image.style)
+      void playerForeground.offsetWidth
+      playerForeground.classList.add('--style-' + instamentaryData.snippets[currentSnippetIndex].image.style)
     }
   }
 
   function pause(e) {
     playerAudio.pause()
     controls.classList.remove('--playing')
-    var currentSnippet = snippets.querySelector('.instamentary__snippet.--active')
-    currentSnippet.classList.remove('--active')
   }
 
   function end(e) {

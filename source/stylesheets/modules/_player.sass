@@ -1,4 +1,4 @@
-.player, .player__previous
+.player
   width: 100%
   height: 100%
   overflow: hidden
@@ -9,26 +9,23 @@
 .player
   background-color: black
   opacity: 0
-  z-index: 1
+  z-index: 0
   &.--style-contain, &.--style-cover
     background-color: black
     opacity: 1
     transition: opacity 1s
+  &.--foreground
+    z-index: 1
 
-.player__previous
-  z-index: 0
-
-.player__image,
-.player__background,
-.player__image__previous,
-.player__background__previous
+.player__image__foreground,
+.player__image__background
   position: absolute
   .--style-contain &, .--style-cover &
     height: 100%
     width: 100%
     top: 0
 
-.player__image, .player__image__previous
+.player__image__foreground
   filter: blur(5px)
   opacity: 0
   transform: scale(1.05)
@@ -55,7 +52,7 @@
     object-fit: cover
     padding: 0
 
-.player__background, .player__background__previous
+.player__image__background
   .--style-contain &
     height: 100%
     object-fit: cover
