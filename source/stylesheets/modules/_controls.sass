@@ -1,44 +1,26 @@
 .controls
   align-items: center
-  background: $color_primary
-  border: 2px solid $color_primary
-  border-radius: 100px
-  box-shadow: 0 0 15px 5px rgba(black, 0.5)
-  color: white
   cursor: pointer
   display: flex
   font-weight: 600
   height: 50px
-  justify-content: center
+  justify-content: flex-start
   line-height: 1.4
   position: relative
   text-align: center
-  transition: opacity 0.3s, border-radius 0.2s
   z-index: 10
-  transition: all 0.3s ease-out
   width: 100%
   +breakpoint($breakpoint-2...)
     height: 60px
-  &:hover
-    background: darken($color_primary, 4%)
-    color: white
-  &:active
-    background: darken($color_primary, 10%)
-    border: 2px solid darken($color_primary, 10%)
+  +breakpoint($breakpoint-4...)
+    padding-left: 3rem
   &.--playing
     width: auto
-    &:hover
-      background: $color_primary
-    &:active
-      background: $color_primary
-      border: 2px solid darken($color_primary, 10%)
     &.--sticky
       left: 1rem
       +breakpoint($breakpoint-2...)
         left: 4rem
   &.--sticky
-    background: darken($color_primary, 35%)
-    border-color: darken($color_primary, 40%)
     left: 4rem
     max-width: calc(100% - 8rem)
     position: fixed
@@ -46,6 +28,33 @@
     transform: translateY(1rem)
     +breakpoint($breakpoint-2...)
       max-width: calc(40% - 8rem)
+
+.controls__content
+  background: $color_primary
+  border: 2px solid $color_primary
+  border-radius: 100px
+  box-shadow: 0 0 15px 5px rgba(black, 0.5)
+  color: white
+  height: 100%
+  transition: all 0.3s ease-out
+  width: 100%
+  +breakpoint($breakpoint-2...)
+    max-width: calc(50rem - 8rem)
+  &:hover
+    background: darken($color_primary, 4%)
+    color: white
+  &:active
+    background: darken($color_primary, 10%)
+    border: 2px solid darken($color_primary, 10%)
+  .--playing &
+    &:hover
+      background: $color_primary
+    &:active
+      background: $color_primary
+      border: 2px solid darken($color_primary, 10%)
+  .--sticky &
+    background: darken($color_primary, 35%)
+    border-color: darken($color_primary, 40%)
     &:hover
       background: darken($color_primary, 30%)
     &:active
