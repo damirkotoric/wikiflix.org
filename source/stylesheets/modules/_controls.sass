@@ -12,8 +12,6 @@
   width: 100%
   +breakpoint($breakpoint-2...)
     height: 60px
-  +breakpoint($breakpoint-4...)
-    padding-left: 3rem
   &.--playing
     width: auto
     &.--sticky
@@ -28,6 +26,8 @@
     transform: translateY(1rem)
     +breakpoint($breakpoint-2...)
       max-width: calc(40% - 8rem)
+    +breakpoint($breakpoint-4...)
+      padding-left: 3rem
 
 .controls__content
   background: $color_primary
