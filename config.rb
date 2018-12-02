@@ -135,6 +135,6 @@ end
 configure :sync do
   system 'middleman build'
   Dir.chdir './build/'
-  system 'gsutil -m rm gs://instamentary.co/**'
-  system 'gsutil cp -r * gs://instamentary.co'
+  system 'gsutil -m rm gs://wikiflix.org/**'
+  system 'gsutil cp -r * gs://wikiflix.org'
 end

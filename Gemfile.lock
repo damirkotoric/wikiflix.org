@@ -131,6 +131,7 @@ GEM
     progress (3.4.0)
     public_suffix (3.0.2)
     rack (2.0.4)
+    rack-cors (1.0.2)
     rack-livereload (0.3.16)
       rack
     rb-fsevent (0.10.2)
@@ -164,6 +165,7 @@ DEPENDENCIES
   middleman-minify-html
   middleman-sprockets
   mime-types
+  rack-cors
   sass
 
 BUNDLED WITH

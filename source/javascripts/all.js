@@ -4,31 +4,27 @@
 
 'use strict'
 
-window.onload = function () {
+$(document).ready(function() {
   // Initiate Fastclick.js
-  if ('addEventListener' in document) {
-  	document.addEventListener('DOMContentLoaded', function() {
-  		FastClick.attach(document.body)
-  	}, false)
-  }
+  FastClick.attach(document.body)
 
   // Variable definitions
   var instamentaryData = {}
-  var inputForm = document.getElementById('input__form')
-  var subscribeForm = document.getElementById('subscribe__form')
-  var inputUrl = document.getElementById('input__url')
-  var email = document.getElementById('email')
-  var instamentaryControls = document.getElementById('instamentary__controls')
-  var controls = document.getElementById('controls')
-  var playWrap = document.getElementById('play__wrap')
-  var playButton = document.getElementById('play')
-  var pauseButton = document.getElementById('pause')
-  var playerForeground = document.getElementById('player__foreground')
-  var playerBackground = document.getElementById('player__background')
-  var snippets = document.getElementById('snippets')
-  var modalClose = document.getElementById('modal__close')
-  var subscribe = document.getElementById('subscribe')
-  var subscribeOutputDone = document.getElementById('subscribe__output__done')
+  var $banner = $('#banner')
+  var $inputForm = $('#input-form')
+  var $subscribeForm = $('#subscribe-form')
+  var $inputUrl = $('#input-url')
+  var $email = $('#email')
+  var $instamentaryControls = $('#instamentary-controls')
+  var $controls = $('#controls')
+  var $playButton = $('#play')
+  var $pauseButton = $('#pause')
+  var $playerForeground = $('#player-foreground')
+  var $playerBackground = $('#player-background')
+  var $snippets = $('#snippets')
+  var $modalClose = $('#modal-close')
+  var $subscribe = $('#subscribe')
+  var $subscribeOutputDone = $('#subscribe-output-done')
   var currentSnippetIndex = 0
   var audio
   var audioID
@@ -36,16 +32,15 @@ window.onload = function () {
   var audioSeek
 
   // Event listeners
-  inputForm.addEventListener('submit', inputFormSubmitted)
-  subscribeForm.addEventListener('submit', subscribeFormSubmitted)
-  playButton.addEventListener('click', play)
-  pauseButton.addEventListener('click', pause)
-  Array.prototype.forEach.call(snippets.querySelectorAll('.instamentary__snippet'), function(instamentarySnippet, i) {
-    instamentarySnippet.addEventListener('click', jumpTo)
-  })
-  window.addEventListener('scroll', scrolling)
-  modalClose.addEventListener('click', hideModal)
-  subscribeOutputDone.addEventListener('click', hideModal)
+  $inputForm.on('submit', inputFormSubmitted)
+  $inputUrl.on('paste', urlPaste)
+  $inputUrl.on('focus', selectURL)
+  $playButton.on('click', play)
+  $pauseButton.on('click', pause)
+  $('.instamentary__snippet').on('click', jumpTo)
+  $(window).on('scroll', scrolling)
+  $modalClose.on('click', hideModal)
+  $subscribeOutputDone.on('click', hideModal)
 
   // Init
   loadData('/data/instamentaries/gesture-talks.json')
@@ -58,7 +53,7 @@ window.onload = function () {
       if (this.status >= 200 && this.status < 400) {
         // Success!
         instamentaryData = JSON.parse(this.response)
-        controls.classList.remove('--loading')
+        $controls.removeClass('--loading')
       } else {
         // We reached our target server, but it returned an error.
         console.log('We reached our target server, but it returned an error.')
@@ -74,7 +69,7 @@ window.onload = function () {
   function play(e) {
     e = null || e
     if (isEmpty(instamentaryData)) {
-      controls.classList.add('--loading')
+      $controls.addClass('--loading')
     } else {
       // Play audio
       console.log('current snippet index is ' + currentSnippetIndex)
@@ -86,42 +81,42 @@ window.onload = function () {
       })
       audio.on('end', end)
       audioID = audio.play()
-      controls.classList.remove('--loading')
-      controls.classList.add('--playing')
+      $controls.removeClass('--loading')
+      $controls.addClass('--playing')
       // Highlight active paragraph snippet
-      var currentSnippet = snippets.querySelector('.instamentary__snippet.--active')
+      var currentSnippet = $snippets.querySelector('.instamentary__snippet.--active')
       if (currentSnippet) {
-        currentSnippet.classList.remove('--active')
+        currentSnippet.removeClass('--active')
       }
-      console.log(snippets.querySelector('.instamentary__snippet:nth-of-type(' + parseInt(currentSnippetIndex)+1 + ')'))
-      snippets.querySelector('.instamentary__snippet:nth-of-type(' + parseInt(currentSnippetIndex+1) + ')').classList.add('--active')
+      console.log($snippets.querySelector('.instamentary__snippet:nth-of-type(' + parseInt(currentSnippetIndex)+1 + ')'))
+      $snippets.querySelector('.instamentary__snippet:nth-of-type(' + parseInt(currentSnippetIndex+1) + ')').addClass('--active')
       // Create new playerForeground
       var newPlayerForeground = playerForeground.cloneNode([true])
-      newPlayerForeground.classList.add('--foreground')
+      newPlayerForeground.addClass('--foreground')
       playerForeground.parentNode.appendChild(newPlayerForeground)
       console.log('image url is ' + instamentaryData.snippets[currentSnippetIndex].image.url)
       newPlayerForeground.querySelector('.player__image__foreground').setAttribute('src', instamentaryData.snippets[currentSnippetIndex].image.url)
       newPlayerForeground.querySelector('.player__image__background').setAttribute('src', instamentaryData.snippets[currentSnippetIndex].image.url)
-      newPlayerForeground.classList.remove('--style-cover')
-      newPlayerForeground.classList.remove('--style-contain')
-      // Remove old playerBackground
-      playerBackground.parentNode.removeChild(playerBackground)
-      // Set old playerForeground to new playerBackground
-      playerForeground.classList.remove('--foreground')
+      newPlayerForeground.removeClass('--style-cover')
+      newPlayerForeground.removeClass('--style-contain')
+      // Remove old $playerBackground
+      $playerBackground.parentNode.removeChild($playerBackground)
+      // Set old playerForeground to new $playerBackground
+      playerForeground.removeClass('--foreground')
       playerForeground.setAttribute('id', 'player__background')
       // Update references to players
-      playerBackground = playerForeground
+      $playerBackground = playerForeground
       playerForeground = newPlayerForeground
       // Animate in playerForeground
       // https://css-tricks.com/restart-css-animation/
       void playerForeground.offsetWidth
-      playerForeground.classList.add('--style-' + instamentaryData.snippets[currentSnippetIndex].image.style)
+      playerForeground.addClass('--style-' + instamentaryData.snippets[currentSnippetIndex].image.style)
     }
   }
 
   function pause(e) {
     audio.pause()
-    controls.classList.remove('--playing')
+    $controls.removeClass('--playing')
   }
 
   function end(e) {
@@ -135,7 +130,7 @@ window.onload = function () {
   function jumpTo(e) {
     var el = e.currentTarget
     var childIndex = parseInt(Array.from(el.parentNode.children).indexOf(el))
-    Array.prototype.forEach.call(snippets.querySelectorAll('.instamentary__snippet'), function(instamentarySnippet, i) {
+    Array.prototype.forEach.call($snippets.querySelectorAll('.instamentary__snippet'), function(instamentarySnippet, i) {
       if (instamentarySnippet === el) {
         currentSnippetIndex = i
       }
@@ -144,58 +139,66 @@ window.onload = function () {
   }
 
   function scrolling(e) {
-    if (window.pageYOffset < instamentaryControls.offsetTop) {
-      controls.classList.remove('--sticky')
+    if (window.pageYOffset < $instamentaryControls.offset().top) {
+      $controls.removeClass('--sticky')
       console.log('normal')
     } else {
-      controls.classList.add('--sticky')
+      $controls.addClass('--sticky')
       console.log('sticky')
     }
   }
 
-  function inputFormSubmitted(e) {
-    e.preventDefault()
-    showModal(e)
+  function urlPaste(e) {
+    $inputUrl[0].value = e.originalEvent.clipboardData.getData('text')
+    console.log($inputUrl)
+    $inputForm.submit()
   }
 
-  function subscribeFormSubmitted(e) {
+  function selectURL() {
+    $(this).select()
+  }
+
+  function inputFormSubmitted(e) {
     e.preventDefault()
-    var request = new XMLHttpRequest()
-    var url = 'https://hooks.zapier.com/hooks/catch/437741/a8fgqq?email=' + email.value + '&url=' + inputUrl.value
-    subscribe.classList.add('--loading')
-    request.open('GET', url, true)
-    request.onload = function() {
-      if (this.status >= 200 && this.status < 400) {
-        // Success!
-        console.log(this.response)
-        subscribe.classList.remove('--loading')
-        subscribe.classList.add('--subscribed')
-      } else {
-        // We reached our target server, but it returned an error.
-        console.log('We reached our target server, but it returned an error.')
+    $('body').addClass('js-loading-item')
+    $inputUrl.blur()
+    $.ajax({
+      url: $inputForm.attr('action'),
+      type: "post",
+      data: $inputForm.serializeArray(),
+      success: function (response) {
+        console.log(response.text['*'])
+        $('body').html(response.text['*'])
+        $('body').removeClass('js-loading-item')
+        $('body').addClass('js-loaded-item')
+      },
+      error: function(error) {
+         console.log('Error fetching data.')
+         $('body').removeClass('js-loading-item')
+         if (error.responseText) {
+           showBanner(error.responseText)
+         } else {
+           showBanner('Connection failed')
+         }
       }
-    }
-    request.onerror = function() {
-      // There was a connection error of some sort.
-      console.log('There was a connection error of some sort.')
-    }
-    request.send()
-    console.log()
-    console.log(email.value)
+    })
+  }
+
+  function showBanner(message, isPermanent = false) {
+    $('body').addClass('js-banner-visible')
+    $banner.text(message)
+    window.setTimeout(function() {
+      $('body').removeClass('js-banner-visible')
+    }, 5000)
   }
 
   function showModal(e) {
-    document.body.classList.remove('--modal-hide')
-    document.body.classList.add('--modal-show')
+    $('body').removeClass('--modal-hide')
+    $('body').addClass('--modal-show')
   }
 
   function hideModal(e) {
-    document.body.classList.remove('--modal-show')
-    document.body.classList.add('--modal-hide')
+    $('body').removeClass('--modal-show')
+    $('body').addClass('--modal-hide')
   }
-
-  // Helpers
-  function isEmpty(obj) {
-    return Object.keys(obj).length === 0 && obj.constructor === Object
-  }
-}
+});

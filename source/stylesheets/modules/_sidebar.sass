@@ -20,11 +20,32 @@
 
 .sidebar__input
   margin: 1.5rem 0 1rem
+  form
+    position: relative
+
   input[type="text"]
     background: rgba(black, 0.5)
     color: white
     width: 100%
     transition: border-color 0.3s
+    .js-loading-item &
+      padding-right: 40px
+
+  svg
+    display: none
+    position: absolute
+    right: 10px
+    top: 0
+    height: 100%
+    width: 20px
+    .js-loading-item &
+      display: block
+
+.sidebar__input__error
+  background: black
+  border: 1px solid lighten($color_primary, 10%)
+  display: block
+  padding: 5px
 
 .sidebar__content, .sidebar__footer
   a
@@ -60,11 +81,11 @@
       z-index: -1
       pointer-events: none
     &::before
-      background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 100%)
+      background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 100%)
       left: 0
       width: 40%
     &::after
-      background: linear-gradient(to right, black 0%, rgba(0, 0, 0, 0.738) 19%, rgba(0, 0, 0, 0.541) 34%, rgba(0, 0, 0, 0.382) 47%, rgba(0, 0, 0, 0.278) 56.5%, rgba(0, 0, 0, 0.194) 65%, rgba(0, 0, 0, 0.126) 73%, rgba(0, 0, 0, 0.075) 80.2%, rgba(0, 0, 0, 0.042) 86.1%, rgba(0, 0, 0, 0.021) 91%, rgba(0, 0, 0, 0.008) 95.2%, rgba(0, 0, 0, 0.002) 98.2%, transparent 100%)
+      background: linear-gradient(to right, black 0%, rgba(0, 0, 0, 0.8) 19%, rgba(0, 0, 0, 0.541) 34%, rgba(0, 0, 0, 0.382) 47%, rgba(0, 0, 0, 0.278) 56.5%, rgba(0, 0, 0, 0.194) 65%, rgba(0, 0, 0, 0.126) 73%, rgba(0, 0, 0, 0.075) 80.2%, rgba(0, 0, 0, 0.042) 86.1%, rgba(0, 0, 0, 0.021) 91%, rgba(0, 0, 0, 0.008) 95.2%, rgba(0, 0, 0, 0.002) 98.2%, transparent 100%)
       right: 0
       width: 60%
       opacity: 0.8

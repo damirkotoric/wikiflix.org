@@ -2,24 +2,31 @@
 description: ""
 ---
 
+<div class="banner" id="banner">
+  <span></span>
+</div>
+
 <div class="page">
   <div class="sidebar">
     <a class="sidebar__logo" href="/">
-      <h1>Instamentary</h1>
+      <h1>Wikiflix</h1>
     </a>
-    <h3>Turn any web page into an instant documentary.</h3>
+    <h3>Wikipedia 'n chill.</h3>
     <div class="sidebar__input">
-      <form class="" id="input__form" action="index.html" method="post">
-        <input id="input__url" type="text" name="" placeholder="Paste URL here, grab a cup of tea, enjoy..." value="">
+      <form id="input-form" action="http://192.168.8.100:3000" method="post">
+        <input id="input-url" type="text" name="wikipedia_url" placeholder="Paste link to a Wikipedia page, get cosy, enjoy..." value="https://en.wikipedia.org/wiki/Bali">
+        <svg class="input__spinner spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+           <circle class="spinner__path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
       </form>
     </div>
     <div class="sidebar__content instamentary">
       <h1>Gesture talks</h1>
       <p class="instamentary__teaser">Across vast cultural divides people can understand one another through gesture. Does that make it a universal language?</p>
-      <div class="instamentary__controls" id="instamentary__controls">
+      <div class="instamentary__controls" id="instamentary-controls">
         <div class="controls" id="controls">
           <div class="controls__content">
-            <div class="controls__play --large" id="play"><img src="/images/icon-play.svg" alt=""> Play instamentary</div>
+            <div class="controls__play --large" id="play"><img src="/images/icon-play.svg" alt=""> Play</div>
             <div class="controls__loading">
               <div class="loader">
                 <svg class="loader__circular" viewBox="25 25 50 50">
@@ -163,11 +170,11 @@ description: ""
   </div>
   <div class="sidebar__background"></div>
   <button id="play__backup" hidden></button>
-  <div class="player --style-cover" id="player__background">
+  <div class="player --style-cover" id="player-background">
     <img class="player__image__foreground" src="" alt="">
     <img class="player__image__background" src="" alt="">
   </div>
-  <div class="player --style-cover --foreground" id="player__foreground">
+  <div class="player --style-cover --foreground" id="player-foreground">
     <img class="player__image__foreground" src="https://d33ypg4xwx0n86.cloudfront.net/direct?url=https%3A%2F%2Fnu.aeon.co%2Fimages%2F9088de2c-a2b9-4658-93b1-ee3629d2323a%2Fheader_essay-final-par76829.jpg&resize=w1408" alt="">
     <img class="player__image__background" src="https://d33ypg4xwx0n86.cloudfront.net/direct?url=https%3A%2F%2Fnu.aeon.co%2Fimages%2F9088de2c-a2b9-4658-93b1-ee3629d2323a%2Fheader_essay-final-par76829.jpg&resize=w1408" alt="">
   </div>
@@ -179,7 +186,7 @@ description: ""
       <div class="subscribe__input">
         <h2>Work in the making</h2>
         <p>Instamentary isn't ready yet. Leave your email to find out when it goes live. You can also follow <a href="https://twitter.com/damirkotoric" target="_blank">@damirkotoric</a> on Twitter for updates.</p>
-        <form class="subscribe__form" id="subscribe__form" action="index.html" method="post">
+        <form class="subscribe__form" id="subscribe-form" action="index.html" method="post">
           <input id="email" type="email" name="" value="" placeholder="Email address">
           <input type="submit" name="" value="Notify me">
         </form>
@@ -194,11 +201,11 @@ description: ""
       </div>
       <div class="subscribe__output">
         <p><strong>👍🏼 You'll be notified. Thanks for stopping by.</strong></p>
-        <button class="button" id="subscribe__output__done" type="button" name="button">Done for now</button>
+        <button class="button" id="subscribe-output-done" type="button" name="button">Done for now</button>
       </div>
     </div>
   </div>
-  <div class="modal__close" id="modal__close">
+  <div class="modal__close" id="modal-close">
     <img src="/images/icon-close-white.svg" alt="Close modal">
   </div>
 </div>
