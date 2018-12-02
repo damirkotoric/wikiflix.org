@@ -75,7 +75,7 @@ $(document).ready(function() {
   }
 
   function play(e) {
-    e = null || e
+    e = e || null
     if (isEmpty(wikiflixData)) {
       $controls.addClass('--loading')
     } else {
@@ -189,7 +189,8 @@ $(document).ready(function() {
     })
   }
 
-  function showBanner(message, isPermanent = false) {
+  function showBanner(message, isPermanent) {
+    isPermanent = isPermanent || false
     $('body').addClass('js-banner-visible')
     $banner.text(message)
     window.setTimeout(function() {
