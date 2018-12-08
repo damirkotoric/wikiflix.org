@@ -12,6 +12,9 @@ description: ""
       <h1>Wikiflix</h1>
     </a>
     <h3>Wikipedia 'n chill.</h3>
+    <% if config[:environment].eql?(:development) %>
+      development
+    <% end %>
     <div class="sidebar__input">
       <form id="input-form" action="http://192.168.8.100:3000" method="post">
         <input id="input-url" type="text" name="wikipedia_url" placeholder="Paste link to a Wikipedia page, get cosy, enjoy..." value="https://en.wikipedia.org/wiki/Amsterdam">
