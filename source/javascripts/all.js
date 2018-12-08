@@ -50,7 +50,6 @@ $(document).ready(function() {
   $subscribeOutputDone.on('click', hideModal)
 
   // Init
-  loadData('/data/instamentaries/gesture-talks.json')
   $inputForm.submit()
 
   // Functions
@@ -213,27 +212,22 @@ $(document).ready(function() {
     $('body').addClass('js-loaded-item')
     console.log(jsonData)
     var pageID = Object.keys(jsonData.query.pages)[0]
+    // Print data
     $wikiflixTitle.text(jsonData.query.pages[pageID].title)
-    $wikiflixTitle.text(jsonData.query.pages[pageID].title)
-    $wikiflixTeaser.text(jsonData.query.pages[pageID].description)
+    var description = jsonData.query.pages[pageID].description
+    if (description) {
+      $wikiflixTeaser.text(description)
+    } else {
+      $wikiflixTeaser.text('')
+    }
     if (jsonData.query.pages[pageID].thumbnail) {
       $playerImageForeground.attr('src', jsonData.query.pages[pageID].thumbnail.source)
     } else {
       $playerImageForeground.attr('src', '')
     }
     $snippets.html(jsonData.query.pages[pageID].extract)
-
-    $.ajax({
-      url: 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=info&pageids=' + pageID + '&inprop=url',
-      type: 'post',
-      success: function (response) {
-        if (response.query.pages[pageID].fullurl) {
-          $wikipediaURL.attr('href', response.query.pages[pageID].fullurl)
-        }
-      },
-      error: function(error) {
-         console.log('Error fetching Wikipedia page URL.')
-      }
-    })
+    if (jsonData.query.pages[pageID].fullurl) {
+      $wikipediaURL.attr('href', jsonData.query.pages[pageID].fullurl)
+    }
   }
 });
