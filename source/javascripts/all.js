@@ -30,6 +30,7 @@ $(document).ready(function() {
   var audioID
   var audioPaused = false
   var audioSeek
+  var initialLinks = ['Amsterdam', 'Moon', 'Piracy', 'Leonardo_da_Vinci', 'Babylon', 'Nikola_Tesla', 'Rule_of_three_(writing)', '1883_eruption_of_Krakatoa', 'Great_Pyramid_of_Giza']
 
   // Wikiflix content variable definitions
   var $wikiflixTitle = $('#wikiflix-title')
@@ -48,11 +49,20 @@ $(document).ready(function() {
   $(window).on('scroll', scrolling)
   $modalClose.on('click', hideModal)
   $subscribeOutputDone.on('click', hideModal)
+  $(window).on('hashchange', hashChanged)
 
   // Init
+  getRandomArticle()
   $inputForm.submit()
 
   // Functions
+  function getRandomArticle() {
+    if (window.location.hash === '') {
+      var randomIndex = Math.floor(Math.random() * initialLinks.length)
+      $inputUrl.val('https://en.wikipedia.org/wiki/' + initialLinks[randomIndex])
+    }
+  }
+
   function loadData(url) {
     var request = new XMLHttpRequest()
     request.open('GET', url, true)
@@ -169,6 +179,14 @@ $(document).ready(function() {
     e.preventDefault()
     $('body').addClass('js-loading-item')
     $inputUrl.blur()
+    // Set hash on URL
+    var url = $inputUrl.val()
+    if (url[url.length - 1] === '/') {
+      url = url.slice(0, -1)
+    }
+    var hash = url.substring(url.lastIndexOf('/') + 1)
+    window.location.hash = hash
+    // Load data
     $.ajax({
       url: $inputForm.attr('action'),
       type: "post",
@@ -229,5 +247,10 @@ $(document).ready(function() {
     if (jsonData.query.pages[pageID].fullurl) {
       $wikipediaURL.attr('href', jsonData.query.pages[pageID].fullurl)
     }
+  }
+
+  function hashChanged(e) {
+    $inputUrl.val('https://en.wikipedia.org/wiki/' + window.location.hash.substr(1))
+    $inputForm.submit()
   }
 });
