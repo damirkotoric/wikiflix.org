@@ -23,8 +23,9 @@
   form
     position: relative
 
-  img
+  span
     cursor: pointer
+    display: flex
     height: 100%
     opacity: 0.8
     padding: 15px
@@ -35,9 +36,13 @@
     &:hover
       opacity: 1
     &:active
-      transform: scale(0.9)
+      > img
+        transform: scale(0.9)
     .js-loading-item &
       display: none
+
+  img
+    height: 100%
 
   input[type="text"]
     background: rgba(black, 0.5)
