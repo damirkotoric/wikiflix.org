@@ -64,8 +64,15 @@ $(document).ready(function() {
   // Functions
   function getRandomArticle() {
     var randomIndex = Math.floor(Math.random() * initialLinks.length)
-    $inputUrl.val('https://en.wikipedia.org/wiki/' + initialLinks[randomIndex])
-    $inputForm.submit()
+    console.log(window.location.hash.substr(1))
+    console.log(initialLinks[randomIndex])
+    if (window.location.hash.substr(1) === initialLinks[randomIndex]) {
+      // Try again
+      getRandomArticle()
+    } else {
+      $inputUrl.val('https://en.wikipedia.org/wiki/' + initialLinks[randomIndex])
+      $inputForm.submit()
+    }
   }
 
   function loadData(url) {
