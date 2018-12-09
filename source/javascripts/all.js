@@ -52,6 +52,7 @@ $(document).ready(function() {
   $(window).on('hashchange', hashChanged)
 
   // Init
+  $inputUrl.val('https://en.wikipedia.org/wiki/' + window.location.hash.substr(1))
   getRandomArticle()
   $inputForm.submit()
 
@@ -250,6 +251,7 @@ $(document).ready(function() {
   }
 
   function hashChanged(e) {
+    console.log('in')
     $inputUrl.val('https://en.wikipedia.org/wiki/' + window.location.hash.substr(1))
     $inputForm.submit()
   }
