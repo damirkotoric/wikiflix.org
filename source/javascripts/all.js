@@ -14,6 +14,7 @@ $(document).ready(function() {
   var $inputForm = $('#input-form')
   var $subscribeForm = $('#subscribe-form')
   var $inputUrl = $('#input-url')
+  var $randomUrl = $('#random-url')
   var $email = $('#email')
   var $wikiflixControls = $('#wikiflix-controls')
   var $controls = $('#controls')
@@ -43,6 +44,7 @@ $(document).ready(function() {
   $inputForm.on('submit', inputFormSubmitted)
   $inputUrl.on('paste', urlPaste)
   $inputUrl.on('focus', selectURL)
+  $randomUrl.on('click', getRandomArticle)
   $playButton.on('click', play)
   $pauseButton.on('click', pause)
   $('.wikiflix__snippet').on('click', jumpTo)
@@ -53,15 +55,17 @@ $(document).ready(function() {
 
   // Init
   $inputUrl.val('https://en.wikipedia.org/wiki/' + window.location.hash.substr(1))
-  getRandomArticle()
-  $inputForm.submit()
+  if (window.location.hash === '') {
+    getRandomArticle()
+  } else {
+    $inputForm.submit()
+  }
 
   // Functions
   function getRandomArticle() {
-    if (window.location.hash === '') {
-      var randomIndex = Math.floor(Math.random() * initialLinks.length)
-      $inputUrl.val('https://en.wikipedia.org/wiki/' + initialLinks[randomIndex])
-    }
+    var randomIndex = Math.floor(Math.random() * initialLinks.length)
+    $inputUrl.val('https://en.wikipedia.org/wiki/' + initialLinks[randomIndex])
+    $inputForm.submit()
   }
 
   function loadData(url) {

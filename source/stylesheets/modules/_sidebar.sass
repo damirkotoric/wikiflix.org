@@ -23,13 +23,28 @@
   form
     position: relative
 
+  img
+    cursor: pointer
+    height: 100%
+    opacity: 0.8
+    padding: 15px
+    position: absolute
+    top: 0
+    right: 0
+    transition: opacity 0.3s
+    &:hover
+      opacity: 1
+    &:active
+      transform: scale(0.9)
+    .js-loading-item &
+      display: none
+
   input[type="text"]
     background: rgba(black, 0.5)
     color: white
+    padding-right: 40px
     width: 100%
     transition: border-color 0.3s
-    .js-loading-item &
-      padding-right: 40px
 
   svg
     display: none
