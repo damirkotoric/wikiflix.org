@@ -64,8 +64,6 @@ $(document).ready(function() {
   // Functions
   function getRandomArticle() {
     var randomIndex = Math.floor(Math.random() * initialLinks.length)
-    console.log(window.location.hash.substr(1))
-    console.log(initialLinks[randomIndex])
     if (window.location.hash.substr(1) === initialLinks[randomIndex]) {
       // Try again
       getRandomArticle()
@@ -262,7 +260,6 @@ $(document).ready(function() {
   }
 
   function hashChanged(e) {
-    console.log('in')
     $inputUrl.val('https://en.wikipedia.org/wiki/' + window.location.hash.substr(1))
     $inputForm.submit()
   }
