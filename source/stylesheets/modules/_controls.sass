@@ -12,13 +12,13 @@
   width: 100%
   +breakpoint($breakpoint-2...)
     height: 60px
-  &.--playing
+  &.-playing
     width: auto
-    &.--sticky
+    &.-sticky
       left: 1rem
       +breakpoint($breakpoint-2...)
         left: 4rem
-  &.--sticky
+  &.-sticky
     left: 4rem
     max-width: calc(100% - 8rem)
     position: fixed
@@ -29,58 +29,45 @@
     +breakpoint($breakpoint-4...)
       padding-left: 3rem
 
-.controls__content
-  background: $color_primary
-  border: 2px solid $color_primary
-  border-radius: 100px
-  box-shadow: 0 0 15px 5px rgba(black, 0.5)
-  color: white
-  height: 100%
-  transition: all 0.3s ease-out
-  width: 100%
-  +breakpoint($breakpoint-2...)
-    max-width: calc(50rem - 8rem)
-  &:hover
-    background: darken($color_primary, 4%)
-    color: white
-  &:active
-    background: darken($color_primary, 10%)
-    border: 2px solid darken($color_primary, 10%)
-  .--playing &
-    &:hover
-      background: $color_primary
-    &:active
-      background: $color_primary
-      border: 2px solid darken($color_primary, 10%)
-  .--sticky &
-    background: darken($color_primary, 35%)
-    border-color: darken($color_primary, 40%)
-    &:hover
-      background: darken($color_primary, 30%)
-    &:active
-      background: darken($color_primary, 20%)
-
-.controls__play, .controls__pause
+.controlsControl
   align-items: center
   display: flex
   justify-content: center
 
-.controls__play, .controls__loading, .controls__modify
-  height: 100%
-  user-select: none
-  width: 100%
+  &.-primary
+    width: 100%
+    & > button
+      margin-right: 1rem
+      width: 100%
+      &#pause
+        display: none
 
-.controls__play
-  align-items: center
-  display: flex
-  text-align: center
-  .--playing &, .--loading &
-    display: none
-  > img
-    height: 20px
-    margin-right: 20px
+  &.-secondary
+    .-sticky &
+      display: none
 
-.controls__loading
+  & > button
+    @extend .button
+    height: 60px
+    min-width: 60px
+    transition: all 0.3s ease-out
+    +breakpoint($breakpoint-2...)
+      max-width: calc(50rem - 8rem)
+    .-playing &
+      &:hover
+        background: $color_primary
+      &:active
+        background: $color_primary
+        border: 2px solid darken($color_primary, 10%)
+    .-sticky &
+      background: darken($color_primary, 35%)
+      border-color: darken($color_primary, 40%)
+      &:hover
+        background: darken($color_primary, 30%)
+      &:active
+        background: darken($color_primary, 20%)
+
+.controlsLoading
   display: none
   left: 0
   padding: 10px
@@ -88,20 +75,20 @@
   position: absolute
   top: 0
   transition: opacity 0.2s
-  .--loading &
+  .-loading &
     display: block
-  .--playing &
+  .-playing &
     display: none
 
-.controls__modify
+.controlsModify
   align-items: center
   cursor: pointer
   display: none
   justify-content: center
-  .--playing &
+  .-playing &
     display: flex
 
-.controls__modify__pause
+.controlsModifyPause
   align-items: center
   display: flex
   justify-content: center
@@ -113,7 +100,7 @@
     min-width: auto
   &:hover
     opacity: 1
-  .--sticky &
+  .-sticky &
     padding: 1rem
   > img
     height: 20px

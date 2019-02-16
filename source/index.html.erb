@@ -8,211 +8,107 @@ description: ""
 
 <div class="page">
   <div class="sidebar">
-    <a class="sidebar__logo" href="/">
+    <a class="sidebarLogo" href="/">
       <h1>Wikiflix</h1>
     </a>
-    <h3>Wikipedia 'n chill.</h3>
-    <div class="sidebar__input">
+    <h3>Wikiflix grabs a random Wikipedia page and automagically turns it into an audio documentary. Wikipedia 'n chill. BYO popcorn.</h3>
+    <div class="sidebarInput">
       <form id="input-form" action="
         <% if config[:environment].eql?(:development) %>
-          http://192.168.178.35:3000/
+          <%# http://192.168.1.102:3000/ %>
+          http://192.168.1.15:3000/
         <% else %>
           https://wikiflix.herokuapp.com/
         <% end %>
         " method="post">
-        <input id="input-url" type="text" name="wikipedia_url" placeholder="Paste link to a Wikipedia page, get cosy, enjoy..." value="https://en.wikipedia.org/wiki/">
-        <span id="random-url">
-          <img src="/images/icon-shuffle.svg" alt="Random article" title="Random article">
-        </span>
-        <svg class="input__spinner spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-           <circle class="spinner__path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-        </svg>
+        <div class="sidebarInputUrl">
+          <input hidden id="input-url" type="text" name="wikipedia_url" placeholder="Paste link to a Wikipedia page, get cosy, enjoy..." value="https://en.wikipedia.org/wiki/">
+          <span id="random-url">
+            <img src="/images/icon-shuffle.svg" alt="Random article" title="Random article">
+          </span>
+          <svg class="inputSpinner spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+             <circle class="spinnerPath" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+          </svg>
+        </div>
       </form>
     </div>
-    <div class="sidebar__content wikiflix">
+    <div class="sidebarContent wikiflix">
       <h1 id="wikiflix-title"></h1>
-      <p id="wikiflix-teaser" class="wikiflix__teaser"></p>
-      <div class="wikiflix__meta">
+      <p id="wikiflix-teaser" class="wikiflixTeaser"></p>
+      <div class="wikiflixMeta">
         <a id="wikipedia-url" href="" target="_blank">wikipedia.org</a>
         <!-- <span>23 minutes</span> -->
       </div>
-      <div class="wikiflix__controls" id="wikiflix-controls">
+      <div class="wikiflixControls" id="wikiflix-controls">
         <div class="controls" id="controls">
-          <div class="controls__content">
-            <div class="controls__play --large" id="play"><img src="/images/icon-play.svg" alt=""> Play</div>
-            <div class="controls__loading">
+          <div class="controlsControl -primary">
+            <button id="play">
+              <img src="/images/icon-play.svg" alt=""> Play
+            </button>
+            <button id="pause">
+              <img src="/images/icon-pause.svg" alt="Pause">
+            </button>
+            <div class="controlsLoading">
               <div class="loader">
-                <svg class="loader__circular" viewBox="25 25 50 50">
-                  <circle class="loader__path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                <svg class="loaderCircular" viewBox="25 25 50 50">
+                  <circle class="loaderPath" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
                 </svg>
               </div>
             </div>
-            <div class="controls__modify">
-              <div class="controls__modify__pause" id="pause"><img src="/images/icon-pause.svg" alt="Pause"></div>
-            </div>
+          </div>
+          <div class="controlsControl -secondary">
+            <button id="randomise">
+              <img src="/images/icon-dice.svg" alt="Randomise">
+            </button>
           </div>
         </div>
       </div>
-      <div class="wikiflix__snippets" id="snippets">
-        <!-- <div class="wikiflix__snippet">
-          <figure>
-            <img src="https://d33ypg4xwx0n86.cloudfront.net/direct?url=https%3A%2F%2Fnu.aeon.co%2Fimages%2F9088de2c-a2b9-4658-93b1-ee3629d2323a%2Fheader_essay-final-par76829.jpg&resize=w1408" alt="">
-            <figcaption>A Sicilian peasant explains to an American officer which way the Germans had gone. August 1943 in Troina, Italy. Photo by Robert Capa, courtesy International Center of Photography/Magnum</figcaption>
-          </figure>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>In the spring of 1528, the Spanish explorer Álvar Núñez Cabeza de Vaca made landfall on what is now the gulf coast of Florida. Over the next eight years, as he and a small party traversed thousands of miles, they found themselves in a new-world Babel, moving from ‘one strange tongue to another’. In their many encounters with native peoples, their own tongue, Spanish, proved of little use. But their hands served them well. ‘You would have thought, from the questions and answers in signs,’ de Vaca later recounted, ‘that they spoke our language and we theirs.’</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>De Vaca is not the first or last explorer to claim successful communication with indigenous peoples through gesture. Similar reports abound. Over and over – on Easter Island and Tasmania, on the shores of Canada and Patagonia – European interlopers and native peoples used pointing and pantomimes to bridge cultural chasms. Sometimes, the messages conveyed were surprisingly sophisticated. If you stay until morning, we will feed you. In that direction, there are goats and pigs of all sizes. The people in that direction eat human flesh.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>The parties in these exchanges could not have known it at the time, but they were following the advice of Joseph Marie Degérando, a French philosopher with an anthropological bent. In 1800, he wrote a treatise offering practical advice for would-be explorers and ‘philosophical travellers’. To first establish communication with the native peoples of unfamiliar lands (‘savages’ in the cringe-inducing term of his day), he recommended going back to ‘the signs which are closest to nature’. Go back to gestures, in other words – the ‘language of action’.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Degérando’s proposals swam with the tide of much of Western thinking. The notion that gesture is a natural mode of expression – one that transcends the contrivances of culture – is a very old one. In 95 CE, the Roman rhetorician Quintilian wrote that ‘though the peoples and nations of the earth speak a multitude of tongues, they share in common the universal language of the hands’. For many centuries after Quintilian, the idea of gesture as a universal language retained its lustre. It emerged in different guises: some would invoke it in speculating about the evolutionary origins of language, others in advancing proposals for a gesture-based lingua franca. The notion might have found its most eloquent – or at least enthusiastic – champion in the English physician John Bulwer. In a 1644 treatise, Bulwer described gestures of the hands as ‘the only speech which is natural to man’, one that ‘men in all regions of the habitable world do at first sight most easily understand’. Gesture, he continued, ‘had the happiness to escape the confusion at Babel’.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Amid all this inflated rhetoric, one kind of support for the universality of gesture was conspicuously absent: careful observations about how people around the world actually use their hands and bodies to communicate. When Quintilian, Bulwer, Degérando and other Europeans were impressed by the universality of gesture, they were mostly impressed by the strength of their own intuitions. They had not actually been to ‘all regions of the habitable world’. They had no photographs, videos or other visual documents to consult. (Degérando did request that his readers bring back drawings.)</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Systematic gathering of data about bodily communication would not begin in earnest until the mid-19th century. In putting together The Expression of the Emotions in Man and Animals (1872), Charles Darwin prevailed upon far-flung correspondents in Malaysia, Australia, South America and elsewhere to report details about how indigenous people used their face, head and hands in communication. Pioneering as this method was, epistolary observations about whether people shake their heads or shrug their shoulders at various colonial outposts fall short of modern scientific standards. They amount to what is sometimes called ‘anecdata’.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>In the past 50 years, however, much has changed. Technical limitations have evaporated. Video-recording technologies are now cheap, portable and easy to use; video files can be readily stored, swapped and posted online in massive databases. Anthropologists, linguists and other researchers have fanned out to every niche of the globe, documenting communication in hundreds of the world’s cultures. These efforts have generated a wealth of observations, which we can rifle through, collate and try to make sense of. For the first time in history, perhaps, we are actually in a position to evaluate the ancient idea that gesture is universal. How does it hold up?</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Before building up to an answer, some preliminary points are in order. A first is that the act of gesturing is certainly universal, as far as we know. In every group yet studied, the hands at least occasionally stir and take flight as people talk. We are certainly capable of communicating without these aerialist accompaniments, but our hands tend toward motion. A second preliminary point is that evidently not all gestures are universal. Most, perhaps all, human communities harbour a storehouse of hand gestures with fixed meanings, which are often called ‘emblems’. Examples of emblems in the English-speaking world include the shhh gesture (an index finger held vertical across the mouth), the peace sign (an outward-facing V made with the index and middle fingers), and the thumbs up. Notoriously, such gestures can lead to confusion or worse. Another emblem, the okay gesture, made by forming a ring with the thumb and index finger, is perfectly benign in the US but a provocation elsewhere.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Emblems might be what many think of when they first think of gestures, but in the United States and perhaps most other places they are only rarely put to use. (Try to recall the last time you shhh-ed someone, or gave a thumbs up.) What people produce much more often are gestures for ‘yes’ and ‘no’; points to people, places and things; gestures that sketch objects, actions and represent abstract ideas through visual metaphors. These are the real workhorses of gestural expression. And, as it turns out, a case can be made that these workhorses are broadly similar the world over.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>All human communities, as far as we know, have gestural means of expressing ‘no’ and ‘yes’. Across the English-speaking world and many parts of Europe, this is done by shaking the head from side to side for ‘no’, and nodding the head up and down for ‘yes’. This ‘shake-no, nod-yes’ pattern is in fact extremely widespread beyond Europe – Darwin’s correspondents reported it in Ceylon, Guinea, China and beyond, and many researchers since have commented on it in passing. Such wide diffusion suggests that the pattern has been independently innovated in different communities and is not merely an arbitrary pact.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>But nor is the pattern biologically fixed. At least two other systems are found. One – seen in Greece, parts of Italy, and elsewhere in the Mediterranean – involves a backward jerk of the head for ‘no’ rather than a shake. A third, more boggling pattern is found in Bulgaria: an up-and-down head movement is used for ‘no’ and a side-to-side movement for ‘yes’. This is sometimes described as a simple reversal of our own pattern, though there may also be subtle aspects of how these movements are done that set them apart from our familiar nods and shakes.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>How is it that these gestures are identical in so many places and yet reversed in others? The answer seems to lie in the earliest roots of these signals in infancy. As Darwin observed, the familiar headshake for ‘no’ could stem from the act of turning the head to the side to refuse food. This turning-away then might get stylised, becoming the repetitive headshake that we recognise today. The nod might then develop to form a contrast with the shake – opposite motions for opposite meanings. A similar explanation works for the two other systems. A backward jerk, after all, is another way of bodily rejecting a food source. This backward action can then be stylised in different ways: the Greek pattern exaggerates the single movement; the Bulgarian pattern adds repetition. Then, in selecting the contrasting signal, the Greeks opt for a forward nod, while Bulgarians go with a side-to-side shake.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Many cultures also have back-up bodily signals for ‘yes’ and ‘no’. English speakers, for instance, will sometimes negate with a side-to-side waggle of the index finger (perhaps a manual imitation of the head shake), or a swipe of both hands across the body. In the Yupno, an indigenous group in the interior of Papua New Guinea where I have done fieldwork, the headshake and head nod are used as primary signals for ‘no’ and ‘yes’, but Yupno speakers also pout the lips to negate and make an upward flash of the eyebrows to affirm.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Zooming out to take stock of these observations, we find a remarkable regularity: not only do all cultures have gestural signals for ‘yes’ and ‘no’, all cultures produce their primary versions of these signals with movements of the head. (There are a few reports from the 19th century of cultures that use manual gestures for affirmation and negation, but these authors might have been describing secondary versions.) Yet, upon zooming in on the particulars, we also find culture-specific wrinkles. This proves to be a recurring theme across many gestural phenomena.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Another gestural workhorse is pointing. All humans point – that is, use their bodies to orient another’s attention to some region of space. Accounts of first contacts are positively rife with pointing – pointing to the mouth to mean food or water, to nearby villages, to the sun to indicate time. (In his treatise, Degérando advocated pointing as the type of gesture ‘whose effect is most sure’.) What is more, it seems that people in all cultures make use of the index finger for pointing. This form of indicating usually emerges early in children, before they have said their first word. One study found that infants from six cultures – spanning Western, industrialised communities and small-scale, indigenous ones – all favoured pointing with the forefinger over other forms.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <figure>
-            <img src="https://d33ypg4xwx0n86.cloudfront.net/direct?url=https%3A%2F%2Fd2e1bqvws99ptg.cloudfront.net%2Fuser_image_upload%2F610%2Finsert-DSC_0051_2.jpg&resize=w1408" alt="">
-            <figcaption>A man in the village of Gua, Papua New Guinea points while describing a representation of Yupno history. Photo courtesy the author</figcaption>
-          </figure>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>But when we zoom in, we find that pointing is far from a monolithic behaviour. In some places, it is taboo to point with the left hand; elsewhere it is a no-no to point to rainbows. Among the Arrernte of Indigenous Australia, you would encounter index-finger pointing, but also pointing with other handshapes that are used for distinct purposes. The ‘horned’ hand, for instance, is used for pointing out a general direction of travel, but not for pointing to people.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Other attested ways of pointing might strike Western eyes as exotic, but are hardly uncommon in a global perspective. Notably, indigenous cultures the world over have conventions for pointing with the face. One method is to protrude the lips while you look toward some target of interest. Another is to scrunch the nose. These are not just colourful rarities. My collaborators and I recently showed, for instance, that Yupno speakers are just as likely to point with a scrunched nose as they are to point with the hand.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Another way of pointing that would confound Westerners involves pointing to the sky. This is used to refer to particular times of day. You simply point to a location on the Sun’s east-west arc to communicate a particular time (straight above would be noon), or sweep over part of that arc with your hand to convey a longer time interval. ‘Celestial pointing’, as this is called, has been examined in detail in the Amazon and Bali, and appears to have been quite common once – perhaps especially so in the tropics, where the Sun’s arc is more stable throughout the year.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>When we look at pointing across cultures, we thus find a phenomenon that is kaleidoscopic and yet constrained. We see broad patterns and, at a more zoomed-in level, curious particulars. Everyone points, and nowhere as far as we know do people favour pointing with their elbow or ‘index toe’; but cultures have also found ways to give this basic communicative tool a distinctive twist.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Beyond shaking, nodding and pointing, another major class of gestures are those that depict. That is, people use their hands to imitate actions such as pulling or pinching, to show the shape and size of animals, crops or objects, and to illustrate configurations or movements in space. When the indigenous peoples of New Britain, an island off the coast of New Guinea, wanted to convey that they had pigs and goats of various sizes, they imitated animals sounds and then showed their hands at various heights above the ground.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <figure>
-            <img src="https://d33ypg4xwx0n86.cloudfront.net/direct?url=https%3A%2F%2Fd2e1bqvws99ptg.cloudfront.net%2Fuser_image_upload%2F611%2Fefron1.jpg&resize=w1408" alt="">
-            <figcaption>Illustration by Stuyvesant Van Veen from David Efron’s Gesture and Environment</figcaption>
-          </figure>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Depicting as a gestural technique appears to be used everywhere. But, again, it is not hard to identify diversity in the specifics of how this technique is used. Consider gestures for size. In some places, how you show the height of something depends on what kind of thing you’re talking about. In many parts of Mesoamerica, your palm faces to the side when showing the height of an animal, faces down when showing the height of a thing, and faces up when referring to the height of a corn plant. An outside observer would catch the gist of these gestures, but would also miss some subtleties.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Another subtle cultural difference is found when people reconstruct spatial relationships in their gestures. Say you see something unexpected – a hawk whooshes toward you, with a freshly plucked squirrel dangling from its beak. Later, when you tell the story, you would want to show this whooshing in gestures. As an English speaker, you would most likely show how it happened relative to your own body – that is, that the hawk flew toward you. But speakers of other languages, such as the Australian Indigenous language Guugu Yimitthirr, might not. Instead, they would likely convey the original cardinal orientation of the event. If the hawk flew at you from the south, the speaker would gesture it flying from south. Thus, depending on which way the re-teller is facing, the gestured hawk might whoosh in from the left, from behind, or from any other direction.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>The final workhorse of gesture is also the most abstract: the metaphors that people create with their hands. Many of the metaphors humans seem to favour are based on spatial images, and so they lend themselves well to the imagistic medium of gesture. The best-studied example of gestural metaphors are those used to represent time. People all over the world think of time as having concrete spatial properties. And they gesture accordingly, as though events had a certain ‘length’ or were located in different places. English speakers, for example, often imagine sequences either as a line stretching across their bodies – with past events to the left and future ones to the right – or as a path they are walking on – with past events behind them and future ones ahead. These particular metaphorical models, however, are not universal. Speakers of Aymara in the Andes point to a future that is not ahead but behind them. Mandarin speakers locate next week below last week. When Yupno speakers gesture about time, as my collaborators and I have documented, they locate the past downhill and the future uphill, no matter which way they are facing.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>A complete account of gestural universals and diversity would have to consider a number of other phenomena, too – how people use their hands and bodies to greet each other, to represent numbers, to ask questions, to beckon or dismiss, and to negotiate the conversational floor. Certainly, there is still a lot of work to be done to further document such behaviours. But a reasonable guess is that the punchline would be the same: gestures around the world exhibit constrained diversity. This, after all, is the primary moral that can be extracted from the best-studied workhorses of gestural communication. On the one hand, several general methods of gesturing – signalling ‘yes’ and ‘no’, pointing, depicting, conjuring metaphors in the air – appear to be universally used and in constrained ways. On the other, when we dig into the details of precisely how such methods are deployed, we find unexpected texture.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>This recurring pattern of constrained diversity should perhaps be unsurprising. People everywhere have the same bodily equipment to work with – our hands, arms and heads are basically the same, and they flex, bend and rotate in the same basic ways. We also have the same kinds of minds, which means we tend to notice and care about the same sorts of things. And we all have to solve similar communication problems – problems such as orienting attention, correcting misunderstandings, and posing questions. But we are also creatures of culture – we are indefatigable innovators, and we like to copy what those around us are doing. As a result, innovations spread. This basic tension is generative. It gives rise to the constrained diversity we see not only in our gestures but also in a wide range of other human behaviours.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Strictly speaking then, gestures are not universal ‘across all regions of the habitable’ world – though they are much more so than some have claimed. (The documentary A World of Gestures (1991) informs viewers that gestures ‘vary in infinite ways’.) And, to be fair, this is only one of the guises that the notion of gesture as a universal language has taken. Another is the idea that, when people who don’t share a spoken language need to communicate, they are better off using their hands than their voices. This was the idea behind Degérando’s advice, and recent research weighs in on whether this advice was any good.</p>
-        </div>
-        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/GRo0gLWqKxI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        <div class="wikiflix__snippet">
-          <p>In one study, researchers had people try to communicate a range of concepts – having to do with feelings (eg, hunger), actions (eg, fleeing), and objects (eg, fruit) – to a partner without using any conventional language. The set-up is basically like charades but more controlled. Depending on which version of the task participants were assigned to, they had to communicate using only gestures, only vocalisations, or a combination of the two. The results were unequivocal. Those who played the gesture-only version communicated much more effectively than those who played the vocalisation-only version. And being allowed to use vocalisations in addition to gestures did not really help. As the authors write, when you need to create a communication system from scratch, ‘gesture beats vocalisation hands down’.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>What explains this gestural advantage? The answer lies in the kinds of signals that humans can create, and in how easily such signals can be created in different expressive mediums. When people want to refer to something, they have three basic options. They can point to the referent directly (or to something related to it). They can try to show what it looks like. Or they can just use an agreed-upon convention – a pact that when I form my hand like this or utter this particular sequence of sounds, you know what I mean. Of course, if you are a 16th-century explorer making first contact in the New World – or an English speaker in the charades experiment just described – agreed-upon conventions are off the table. So you are left with pointing and depicting. These two strategies are relatively easy to execute with your hands, but much less so with your voice.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>Visual-bodily communication is thus more direct and transparent than vocal-auditory communication – or at least it has the potential to be. But this does not mean that all communication in this medium is fully transparent. This brings us to a final guise that the ‘gesture as a universal language’ idea has often taken: the canard that sign languages of the deaf are all a single language, made up of gestures. The signs that signers use do certainly look like the gestures that hearing people produce in many ways: they are also made mostly with the hands, and they also involve pointing, depiction and visual metaphors in abundance.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>But sign languages are just that: languages. They might unfold in the visual modality, but they have all the expressive range and grammatical intricacy of spoken languages – and much of their opacity, too. Historically, sign languages might well have roots in on-the-spot gestural communication systems. But as such systems grow, they change: some signs become abbreviated, while others are added; new grammatical devices emerge for tracking who did what to whom, or for distinguishing questions from statements. And so sign languages have diverged, much as spoken languages have.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>And yet there might be some truth to the idea that signing is more transparent than speaking. There is evidence, much of it anecdotal, that signers of different sign languages can communicate with some success, in a way that speakers of different spoken languages simply could not. These interactions – sometimes called ‘cross-signing’ – are not without bumps and frustrations, but they are workable. Researchers are not sure exactly what accounts for this modest success. Part of the answer might well be the transparency of pointing and depicting, methods that sign languages make heavy use of. Another part could be that signers are experts when it comes to communicating in the absence of a shared code. After all, they spend much of their lives navigating a world dominated by hearing people who do not sign.</p>
-        </div>
-        <div class="wikiflix__snippet">
-          <p>The idea that gesture is a universal language is ancient, intuitive, and not altogether wrong. It’s true that plenty of particular gestures are culture-specific. But it’s also true that plenty of gestural patterns are broadly similar the world over, the products of people with similar minds and similar bodies solving similar communicative problems. Whatever its merits, the idea of gesture as a universal language is likely not going away. It is caught up in a timeless tug-of-war between two romantic ideals: one, the universalist notion that humans everywhere are essentially the same; the other, the relativist insistence that every culture is a mysterious island all to itself. Both ideas have their charm, but neither is quite correct.</p>
-        </div> -->
+      <div class="wikiflixSnippets" id="snippets">
       </div>
+      <p><a id="jump_to_top" href="#">Jump to top.</a></p>
     </div>
-    <div class="sidebar__footer">
+    <div class="sidebarFooter">
       <p>Wikiflix is an experiment made by <a href="https://twitter.com/damirkotoric" target="_blank">@damirkotoric</a>.</p>
     </div>
   </div>
-  <div class="sidebar__background"></div>
-  <button id="play__backup" hidden></button>
-  <div class="player --style-cover" id="player-background">
-    <img class="player__image__foreground" src="" alt="">
-    <img class="player__image__background" src="" alt="">
+  <div class="sidebarBackground"></div>
+  <button id="playBackup" hidden></button>
+  <div class="player -style-cover" id="player-background">
+    <img class="playerImageForeground" src="" alt="">
+    <img class="playerImageBackground" src="" alt="">
   </div>
-  <div class="player --style-cover --foreground" id="player-foreground">
-    <img id="player-image-foreground" class="player__image__foreground" src="" alt="">
-    <img id="player-image-background" class="player__image__background" src="" alt="">
+  <div class="player -style-cover -foreground" id="player-foreground">
+    <img id="player-image-foreground" class="playerImageForeground" src="" alt="">
+    <img id="player-image-background" class="playerImageBackground" src="" alt="">
   </div>
 </div>
 
 <div class="modal">
-  <div class="modal__content">
+  <div class="modalContent">
     <div class="subscribe" id="subscribe">
-      <div class="subscribe__input">
+      <div class="subscribeInput">
         <h2>Work in the making</h2>
         <p>wikiflix isn't ready yet. Leave your email to find out when it goes live. You can also follow <a href="https://twitter.com/damirkotoric" target="_blank">@damirkotoric</a> on Twitter for updates.</p>
-        <form class="subscribe__form" id="subscribe-form" action="index.html" method="post">
+        <form class="subscribeForm" id="subscribe-form" action="index.html" method="post">
           <input id="email" type="email" name="" value="" placeholder="Email address">
           <input type="submit" name="" value="Notify me">
         </form>
         <p><small>No spam, and no selling emails to third parties.</small></p>
       </div>
-      <div class="subscribe__loading">
+      <div class="subscribeLoading">
         <div class="loader">
-          <svg class="loader__circular" viewBox="25 25 50 50">
-            <circle class="loader__path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+          <svg class="loaderCircular" viewBox="25 25 50 50">
+            <circle class="loaderPath" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
           </svg>
         </div>
       </div>
-      <div class="subscribe__output">
+      <div class="subscribeOutput">
         <p><strong>👍🏼 You'll be notified. Thanks for stopping by.</strong></p>
         <button class="button" id="subscribe-output-done" type="button" name="button">Done for now</button>
       </div>
     </div>
   </div>
-  <div class="modal__close" id="modal-close">
+  <div class="modalClose" id="modal-close">
     <img src="/images/icon-close-white.svg" alt="Close modal">
   </div>
 </div>

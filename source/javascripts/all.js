@@ -20,6 +20,7 @@ $(document).ready(function() {
   var $controls = $('#controls')
   var $playButton = $('#play')
   var $pauseButton = $('#pause')
+  var $randomiseButton = $('#randomise')
   var $playerForeground = $('#player-foreground')
   var $playerBackground = $('#player-background')
   var $snippets = $('#snippets')
@@ -39,6 +40,7 @@ $(document).ready(function() {
     'Adolf_Hitler_and_vegetarianism',
     'Age_of_Discovery',
     'Akita_(dog)',
+    'Alchemy',
     'Amateur_radio',
     'Amelia_Earhart',
     'American_Revolution',
@@ -91,6 +93,7 @@ $(document).ready(function() {
     'Chemtrail_conspiracy_theory',
     'Chess_boxing',
     'Chicken_or_the_egg',
+    'Chiune_Sugihara',
     'Christmas_in_Nazi_Germany',
     'Committee_to_End_Pay_Toilets_in_America',
     'Conspiracy_theory',
@@ -150,6 +153,7 @@ $(document).ready(function() {
     'Fox_tossing',
     'Franz_Reichelt',
     'Fucking,_Austria',
+    'Futuro',
     'Garden_hermit',
     'Geodesic_dome',
     'Geology',
@@ -385,18 +389,20 @@ $(document).ready(function() {
   var $wikipediaURL = $('#wikipedia-url')
   var $playerImageForeground = $('#player-image-foreground')
   var $playerImageBackground = $('#player-image-background')
+  var $jumpToTop = $('#jump_to_top')
 
   // Event listeners
   $inputForm.on('submit', inputFormSubmitted)
   $inputUrl.on('paste', urlPaste)
   $inputUrl.on('focus', selectURL)
-  $randomUrl.on('click', getRandomArticle)
   $playButton.on('click', play)
   $pauseButton.on('click', pause)
-  $('.wikiflix__snippet').on('click', jumpTo)
+  $randomiseButton.on('click', getRandomArticle)
+  $('.wikiflixSnippet').on('click', jumpTo)
   $(window).on('scroll', scrolling)
   $modalClose.on('click', hideModal)
   $subscribeOutputDone.on('click', hideModal)
+  $jumpToTop.on('click', jumpToTop)
   $(window).on('hashchange', hashChanged)
 
   // Init
@@ -426,7 +432,7 @@ $(document).ready(function() {
       if (this.status >= 200 && this.status < 400) {
         // Success!
         wikiflixData = JSON.parse(this.response)
-        $controls.removeClass('--loading')
+        $controls.removeClass('-loading')
       } else {
         // We reached our target server, but it returned an error.
         console.log('We reached our target server, but it returned an error.')
@@ -442,7 +448,7 @@ $(document).ready(function() {
   function play(e) {
     e = e || null
     if (isEmpty(wikiflixData)) {
-      $controls.addClass('--loading')
+      $controls.addClass('-loading')
     } else {
       // Play audio
       console.log('current snippet index is ' + currentSnippetIndex)
@@ -454,42 +460,42 @@ $(document).ready(function() {
       })
       audio.on('end', end)
       audioID = audio.play()
-      $controls.removeClass('--loading')
-      $controls.addClass('--playing')
+      $controls.removeClass('-loading')
+      $controls.addClass('-playing')
       // Highlight active paragraph snippet
-      var currentSnippet = $snippets.querySelector('.wikiflix__snippet.--active')
+      var currentSnippet = $snippets.querySelector('.wikiflixSnippet.-active')
       if (currentSnippet) {
-        currentSnippet.removeClass('--active')
+        currentSnippet.removeClass('-active')
       }
-      console.log($snippets.querySelector('.wikiflix__snippet:nth-of-type(' + parseInt(currentSnippetIndex)+1 + ')'))
-      $snippets.querySelector('.wikiflix__snippet:nth-of-type(' + parseInt(currentSnippetIndex+1) + ')').addClass('--active')
+      console.log($snippets.querySelector('.wikiflixSnippet:nth-of-type(' + parseInt(currentSnippetIndex)+1 + ')'))
+      $snippets.querySelector('.wikiflixSnippet:nth-of-type(' + parseInt(currentSnippetIndex+1) + ')').addClass('-active')
       // Create new playerForeground
       var newPlayerForeground = playerForeground.cloneNode([true])
-      newPlayerForeground.addClass('--foreground')
+      newPlayerForeground.addClass('-foreground')
       playerForeground.parentNode.appendChild(newPlayerForeground)
       console.log('image url is ' + wikiflixData.snippets[currentSnippetIndex].image.url)
-      newPlayerForeground.querySelector('.player__image__foreground').setAttribute('src', wikiflixData.snippets[currentSnippetIndex].image.url)
-      newPlayerForeground.querySelector('.player__image__background').setAttribute('src', wikiflixData.snippets[currentSnippetIndex].image.url)
-      newPlayerForeground.removeClass('--style-cover')
-      newPlayerForeground.removeClass('--style-contain')
+      newPlayerForeground.querySelector('.playerImageForeground').setAttribute('src', wikiflixData.snippets[currentSnippetIndex].image.url)
+      newPlayerForeground.querySelector('.playerImageBackground').setAttribute('src', wikiflixData.snippets[currentSnippetIndex].image.url)
+      newPlayerForeground.removeClass('-style-cover')
+      newPlayerForeground.removeClass('-style-contain')
       // Remove old $playerBackground
       $playerBackground.parentNode.removeChild($playerBackground)
       // Set old playerForeground to new $playerBackground
-      playerForeground.removeClass('--foreground')
-      playerForeground.setAttribute('id', 'player__background')
+      playerForeground.removeClass('-foreground')
+      playerForeground.setAttribute('id', 'playerBackground')
       // Update references to players
       $playerBackground = playerForeground
       playerForeground = newPlayerForeground
       // Animate in playerForeground
       // https://css-tricks.com/restart-css-animation/
       void playerForeground.offsetWidth
-      playerForeground.addClass('--style-' + wikiflixData.snippets[currentSnippetIndex].image.style)
+      playerForeground.addClass('-style-' + wikiflixData.snippets[currentSnippetIndex].image.style)
     }
   }
 
   function pause(e) {
     audio.pause()
-    $controls.removeClass('--playing')
+    $controls.removeClass('-playing')
   }
 
   function end(e) {
@@ -503,7 +509,7 @@ $(document).ready(function() {
   function jumpTo(e) {
     var el = e.currentTarget
     var childIndex = parseInt(Array.from(el.parentNode.children).indexOf(el))
-    Array.prototype.forEach.call($snippets.querySelectorAll('.wikiflix__snippet'), function(wikiflixSnippet, i) {
+    Array.prototype.forEach.call($snippets.querySelectorAll('.wikiflixSnippet'), function(wikiflixSnippet, i) {
       if (wikiflixSnippet === el) {
         currentSnippetIndex = i
       }
@@ -513,10 +519,10 @@ $(document).ready(function() {
 
   function scrolling(e) {
     if (window.pageYOffset < $wikiflixControls.offset().top) {
-      $controls.removeClass('--sticky')
+      $controls.removeClass('-sticky')
       console.log('normal')
     } else {
-      $controls.addClass('--sticky')
+      $controls.addClass('-sticky')
       console.log('sticky')
     }
   }
@@ -533,7 +539,7 @@ $(document).ready(function() {
 
   function inputFormSubmitted(e) {
     e.preventDefault()
-    $('body').addClass('js-loading-item')
+    $('body').addClass('-js-loading-item')
     $inputUrl.blur()
     // Set hash on URL
     var url = $inputUrl.val()
@@ -552,7 +558,7 @@ $(document).ready(function() {
       },
       error: function(error) {
          console.log('Error fetching data.')
-         $('body').removeClass('js-loading-item')
+         $('body').removeClass('-js-loading-item')
          if (error.responseText) {
            showBanner(error.responseText)
          } else {
@@ -564,26 +570,26 @@ $(document).ready(function() {
 
   function showBanner(message, isPermanent) {
     isPermanent = isPermanent || false
-    $('body').addClass('js-banner-visible')
+    $('body').addClass('-js-banner-visible')
     $banner.text(message)
     window.setTimeout(function() {
-      $('body').removeClass('js-banner-visible')
+      $('body').removeClass('-js-banner-visible')
     }, 5000)
   }
 
   function showModal(e) {
-    $('body').removeClass('--modal-hide')
-    $('body').addClass('--modal-show')
+    $('body').removeClass('-modal-hide')
+    $('body').addClass('-modal-show')
   }
 
   function hideModal(e) {
-    $('body').removeClass('--modal-show')
-    $('body').addClass('--modal-hide')
+    $('body').removeClass('-modal-show')
+    $('body').addClass('-modal-hide')
   }
 
   function populateData(jsonData) {
-    $('body').removeClass('js-loading-item')
-    $('body').addClass('js-loaded-item')
+    $('body').removeClass('-js-loading-item')
+    $('body').addClass('-js-loaded-item')
     console.log(jsonData)
     var pageID = Object.keys(jsonData.query.pages)[0]
     // Print data
@@ -608,5 +614,11 @@ $(document).ready(function() {
   function hashChanged(e) {
     $inputUrl.val('https://en.wikipedia.org/wiki/' + window.location.hash.substr(1))
     $inputForm.submit()
+  }
+
+  function jumpToTop(e) {
+    e.preventDefault()
+    $('html, body').scrollTop(1000)
+    $('html, body').animate({ scrollTop: 0 }, 300)
   }
 });

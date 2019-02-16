@@ -13,24 +13,24 @@
   padding: 0 1rem
   display: none
   z-index: 10
-  body.--modal-show &
+  body.-modal-show &
     animation: fadeIn 0.3s
     display: flex
-    .modal__content
+    .modalContent
       animation: scaleIn 0.3s
-  body.--modal-hide &
+  body.-modal-hide &
     animation: fadeOut 0.3s
     animation-fill-mode: forwards
     display: flex
-    .modal__content
+    .modalContent
       animation: scaleOut 0.3s
-  &.--expanded
-    .modal__more__link
+  &.-expanded
+    .modalMoreLink
       &::after
         border-bottom: 8px solid black
         border-top: none
 
-    .modal__more__content
+    .modalMoreContent
       display: block
 
   a
@@ -41,7 +41,7 @@
   small
     color: darken(white, 30%)
 
-.modal__close
+.modalClose
   cursor: pointer
   padding: 1rem
   position: fixed
@@ -60,7 +60,7 @@
     height: 40px
     width: 40px
 
-.modal__content
+.modalContent
   border-radius: 10px
   margin: 3rem auto
   max-width: 700px
@@ -80,6 +80,6 @@
   p
     margin: 0.5rem 0
 
-body.--modal-show
+body.-modal-show
   .page
     filter: blur(40px)
