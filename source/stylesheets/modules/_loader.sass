@@ -1,66 +1,39 @@
-$color1: rgba(white, 1)
-$color2: rgba(white, 0.8)
-$color3: rgba(white, 0.6)
-$color4: rgba(white, 0.8)
-$color5: rgba(white, 1)
+$offset: 187
+$duration: 1.4s
 
 .loader
-  position: relative
-  margin: 0 auto
-  max-height: 100%
-  max-width: 100%
-  &:before
-    content: ''
-    display: block
-    padding-top: 100%
+  animation: rotator $duration linear infinite
 
-.loaderCircular
-  height: 100%
-  transform-origin: center center
-  width: 100%
-  position: absolute
-  top: 0
-  bottom: 0
-  left: 0
-  right: 0
-  margin: auto
-  .-loading &
-    animation: rotate 2s linear infinite
+@keyframes rotator
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(270deg)
 
 .loaderPath
-  stroke-dasharray: 1, 200
+  stroke-dasharray: $offset
   stroke-dashoffset: 0
-  animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite
-  stroke-linecap: round
+  transform-origin: center
+  animation: dash $duration ease-in-out infinite, colors ($duration*4) ease-in-out infinite
 
-@keyframes rotate
+@keyframes colors
+  0%
+    stroke: rgba(white, 1)
+  25%
+    stroke: rgba(white, 0.8)
+  50%
+    stroke: rgba(white, 0.6)
+  75%
+    stroke: rgba(white, 0.8)
   100%
-    transform: rotate(360deg)
+    stroke: rgba(white, 1)
 
 @keyframes dash
   0%
-    stroke-dasharray: 1, 200
-    stroke-dashoffset: 0
-
+    stroke-dashoffset: $offset
   50%
-    stroke-dasharray: 89, 200
-    stroke-dashoffset: -35px
-
+    stroke-dashoffset: $offset/4
+    transform: rotate(135deg)
   100%
-    stroke-dasharray: 89, 200
-    stroke-dashoffset: -124px
-
-@keyframes color
-  100%,
-  0%
-    stroke: $color3
-
-  40%
-    stroke: $color2
-
-  66%
-    stroke: $color1
-
-  80%,
-  90%
-    stroke: $color4
+    stroke-dashoffset: $offset
+    transform: rotate(450deg)

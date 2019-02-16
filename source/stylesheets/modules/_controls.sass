@@ -33,6 +33,7 @@
   align-items: center
   display: flex
   justify-content: center
+  position: relative
 
   &.-primary
     width: 100%
@@ -41,13 +42,23 @@
       width: 100%
       &#pause
         display: none
+        & img
+          opacity: 0
 
   &.-secondary
     .-sticky &
       display: none
+    .-js-loading-item & .controlsLoading
+      display: block
+    .-js-loading-item &
+      .controlsControlLoading
+        display: block
+      button img
+        display: none
 
-  & > button
+  & button
     @extend .button
+    box-shadow: 0 0 4px rgba(black, 0.7)
     height: 60px
     min-width: 60px
     transition: all 0.3s ease-out
@@ -67,16 +78,16 @@
       &:active
         background: darken($color_primary, 20%)
 
-.controlsLoading
+.controlsControlLoading
   display: none
+  height: 100%
   left: 0
   padding: 10px
   pointer-events: none
   position: absolute
   top: 0
   transition: opacity 0.2s
-  .-loading &
-    display: block
+  width: 100%
   .-playing &
     display: none
 

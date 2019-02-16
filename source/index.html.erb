@@ -15,8 +15,7 @@ description: ""
     <div class="sidebarInput">
       <form id="input-form" action="
         <% if config[:environment].eql?(:development) %>
-          <%# http://192.168.1.102:3000/ %>
-          http://192.168.1.15:3000/
+          http://192.168.1.102:3000/
         <% else %>
           https://wikiflix.herokuapp.com/
         <% end %>
@@ -48,7 +47,7 @@ description: ""
             <button id="pause">
               <img src="/images/icon-pause.svg" alt="Pause">
             </button>
-            <div class="controlsLoading">
+            <div class="controlsControlLoading">
               <div class="loader">
                 <svg class="loaderCircular" viewBox="25 25 50 50">
                   <circle class="loaderPath" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
@@ -60,6 +59,11 @@ description: ""
             <button id="randomise">
               <img src="/images/icon-dice.svg" alt="Randomise">
             </button>
+            <div class="controlsControlLoading">
+              <svg class="loader" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="loaderPath" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
