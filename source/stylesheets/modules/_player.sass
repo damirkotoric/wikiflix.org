@@ -1,21 +1,19 @@
 .player
-  width: 100%
+  background-color: black
   height: 100%
   overflow: hidden
   position: fixed
-  top: 0
   right: 0
-
-.player
-  background-color: black
-  opacity: 0
+  top: 0
+  transition: opacity 1s
+  width: 100%
   z-index: 0
   &.-style-contain, &.-style-cover
     background-color: black
-    opacity: 1
-    transition: opacity 1s
-  &.-foreground
-    z-index: 1
+
+  .-js-loading-item &
+    opacity: 0.7
+
 
 .playerImageForeground,
 .playerImageBackground

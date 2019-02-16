@@ -8,10 +8,10 @@ description: ""
 
 <div class="page">
   <div class="sidebar">
-    <a class="sidebarLogo" href="/">
+    <a id="logo-link" class="sidebarLogo" href="/">
       <h1>Wikiflix</h1>
     </a>
-    <h3>Wikiflix grabs a random Wikipedia page and automagically turns it into an audio documentary. Wikipedia 'n chill. BYO popcorn.</h3>
+    <h3>Wikiflix grabs a random Wikipedia page and automagically turns it into an audio documentary.</h3>
     <div class="sidebarInput">
       <form id="input-form" action="
         <% if config[:environment].eql?(:development) %>
@@ -77,11 +77,7 @@ description: ""
   </div>
   <div class="sidebarBackground"></div>
   <button id="playBackup" hidden></button>
-  <div class="player -style-cover" id="player-background">
-    <img class="playerImageForeground" src="" alt="">
-    <img class="playerImageBackground" src="" alt="">
-  </div>
-  <div class="player -style-cover -foreground" id="player-foreground">
+  <div class="player -style-cover" id="player">
     <img id="player-image-foreground" class="playerImageForeground" src="" alt="">
     <img id="player-image-background" class="playerImageBackground" src="" alt="">
   </div>
