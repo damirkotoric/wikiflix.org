@@ -8,28 +8,30 @@ description: ""
 
 <div class="page">
   <div class="sidebar">
-    <a id="logo-link" class="sidebarLogo" href="/">
-      <h1>Wikiflix</h1>
-    </a>
-    <h3>Wikiflix grabs a random Wikipedia page and automagically turns it into an audio documentary.</h3>
-    <div class="sidebarInput">
-      <form id="input-form" action="
-        <% if config[:environment].eql?(:development) %>
-          http://192.168.1.102:3000/
-        <% else %>
-          https://wikiflix.herokuapp.com/
-        <% end %>
-        " method="post">
-        <div class="sidebarInputUrl">
-          <input hidden id="input-url" type="text" name="wikipedia_url" placeholder="Paste link to a Wikipedia page, get cosy, enjoy..." value="https://en.wikipedia.org/wiki/">
-          <span id="random-url">
-            <img src="/images/icon-shuffle.svg" alt="Random article" title="Random article">
-          </span>
-          <svg class="inputSpinner spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-             <circle class="spinnerPath" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-          </svg>
-        </div>
-      </form>
+    <div class="sidebarHeader">
+      <a id="logo-link" class="sidebarLogo" href="/">
+        <h1>Wikiflix</h1>
+      </a>
+      <h3>Wikiflix automagically turns random Wikipedia pages into audio documentaries. <a href="https://twitter.com/intent/tweet?text=@damirkotoric here's to make https://wikiflix.org better: " target="_blank">Feedback most welcome.</a> </h3>
+      <div class="sidebarInput">
+        <form id="input-form" action="
+          <% if config[:environment].eql?(:development) %>
+            http://192.168.1.102:3000/
+          <% else %>
+            https://wikiflix.herokuapp.com/
+          <% end %>
+          " method="post">
+          <div class="sidebarInputUrl">
+            <input hidden id="input-url" type="text" name="wikipedia_url" placeholder="Paste link to a Wikipedia page, get cosy, enjoy..." value="https://en.wikipedia.org/wiki/">
+            <span id="random-url">
+              <img src="/images/icon-shuffle.svg" alt="Random article" title="Random article">
+            </span>
+            <svg class="inputSpinner spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+               <circle class="spinnerPath" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+            </svg>
+          </div>
+        </form>
+      </div>
     </div>
     <div class="sidebarContent wikiflix">
       <h1 id="wikiflix-title"></h1>

@@ -25,7 +25,7 @@
     top: 0
     transform: translateY(1rem)
     +breakpoint($breakpoint-2...)
-      max-width: calc(40% - 8rem)
+      max-width: calc(41% - 8rem)
     +breakpoint($breakpoint-4...)
       padding-left: 3rem
 
@@ -44,6 +44,8 @@
         display: none
         & img
           opacity: 0
+      .-sticky &
+        margin-right: 0
 
   &.-secondary
     .-sticky &
