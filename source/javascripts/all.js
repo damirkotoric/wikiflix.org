@@ -86,6 +86,7 @@ $(document).ready(function() {
   }
 
   function populateData(jsonData) {
+    wikiflixData = jsonData
     $('body').removeClass('-js-loading-item')
     $('body').addClass('-js-loaded-item')
     console.log(jsonData)
@@ -122,50 +123,18 @@ $(document).ready(function() {
 
   function play(e) {
     e = e || null
-    if (isEmpty(wikiflixData)) {
-      $controls.addClass('-loading')
-    } else {
-      // Play audio
-      console.log('current snippet index is ' + currentSnippetIndex)
-      if (audio && audio.playing) {
-        audio.stop()
-      }
-      audio = new Howl({
-        src: [wikiflixData.snippets[currentSnippetIndex].audioURL]
-      })
-      audio.on('end', end)
-      audioID = audio.play()
-      $controls.removeClass('-loading')
-      $controls.addClass('-playing')
-      // Highlight active paragraph snippet
-      var currentSnippet = $snippets.querySelector('.wikiflixSnippet.-active')
-      if (currentSnippet) {
-        currentSnippet.removeClass('-active')
-      }
-      console.log($snippets.querySelector('.wikiflixSnippet:nth-of-type(' + parseInt(currentSnippetIndex)+1 + ')'))
-      $snippets.querySelector('.wikiflixSnippet:nth-of-type(' + parseInt(currentSnippetIndex+1) + ')').addClass('-active')
-      // Create new playerForeground
-      var newPlayerForeground = playerForeground.cloneNode([true])
-      newPlayerForeground.addClass('-foreground')
-      playerForeground.parentNode.appendChild(newPlayerForeground)
-      console.log('image url is ' + wikiflixData.snippets[currentSnippetIndex].image.url)
-      newPlayerForeground.querySelector('.playerImageForeground').setAttribute('src', wikiflixData.snippets[currentSnippetIndex].image.url)
-      newPlayerForeground.querySelector('.playerImageBackground').setAttribute('src', wikiflixData.snippets[currentSnippetIndex].image.url)
-      newPlayerForeground.removeClass('-style-cover')
-      newPlayerForeground.removeClass('-style-contain')
-      // Remove old $playerBackground
-      $playerBackground.parentNode.removeChild($playerBackground)
-      // Set old playerForeground to new $playerBackground
-      playerForeground.removeClass('-foreground')
-      playerForeground.setAttribute('id', 'playerBackground')
-      // Update references to players
-      $playerBackground = playerForeground
-      playerForeground = newPlayerForeground
-      // Animate in playerForeground
-      // https://css-tricks.com/restart-css-animation/
-      void playerForeground.offsetWidth
-      playerForeground.addClass('-style-' + wikiflixData.snippets[currentSnippetIndex].image.style)
+
+    // Play audio
+    if (audio && audio.playing) {
+      audio.stop()
     }
+    audio = new Howl({
+      src: [wikiflixData.audioURL]
+    })
+    audio.on('end', end)
+    audioID = audio.play()
+    $controls.removeClass('-loading')
+    $controls.addClass('-playing')
   }
 
   function pause(e) {
