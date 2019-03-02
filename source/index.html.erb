@@ -12,11 +12,11 @@ description: ""
       <a id="logo-link" class="sidebarLogo" href="/">
         <h1>Wikiflix</h1>
       </a>
-      <h3>Wikiflix automagically turns random Wikipedia pages into audio documentaries. <a href="https://twitter.com/intent/tweet?text=@damirkotoric here's to make https://wikiflix.org better: " target="_blank">Feedback most welcome.</a> </h3>
+      <h3>Wikiflix automagically turns random Wikipedia pages into audio documentaries. <!-- <a href="https://twitter.com/intent/tweet?text=@damirkotoric here's to make https://wikiflix.org better: " target="_blank">Give feedback.</a>--></h3>
       <div class="sidebarInput">
         <form id="input-form" action="
           <% if config[:environment].eql?(:development) %>
-            http://192.168.1.102:3000/
+            http://10.0.1.15:3000/
           <% else %>
             https://wikiflix.herokuapp.com/
           <% end %>
@@ -43,10 +43,10 @@ description: ""
       <div class="wikiflixControls" id="wikiflix-controls">
         <div class="controls" id="controls">
           <div class="controlsControl -primary">
-            <button id="play">
+            <button class="controlsControlPlay" id="play" disabled>
               <img src="/images/icon-play.svg" alt=""> Play
             </button>
-            <button id="pause">
+            <button class="controlsControlPause" id="pause">
               <img src="/images/icon-pause.svg" alt="Pause">
             </button>
             <div class="controlsControlLoading">
@@ -80,6 +80,11 @@ description: ""
   <div class="sidebarBackground"></div>
   <button id="playBackup" hidden></button>
   <div class="player -style-cover" id="player">
+    <div class="playerLoading">
+      <svg class="loader" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="loaderPath" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+      </svg>
+    </div>
     <img id="player-image-foreground" class="playerImageForeground" src="" alt="">
     <img id="player-image-background" class="playerImageBackground" src="" alt="">
   </div>
